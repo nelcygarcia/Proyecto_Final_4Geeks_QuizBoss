@@ -1,38 +1,37 @@
-//import React, { useEffect } from "react"
+import React, { useEffect } from "react"
 import quizBossLogo from '../assets/img/quizboss-logo.jpg';
-//import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import "../index.css";
 
 export const Home = () => {
-//export const Home = () => {
 
-	//const { store, dispatch } = useGlobalReducer()
+	const { store, dispatch } = useGlobalReducer()
 
-	//const loadMessage = async () => {
-		//try {
-			//const backendUrl = import.meta.env.VITE_BACKEND_URL
+	const loadMessage = async () => {
+		try {
+			const backendUrl = import.meta.env.VITE_BACKEND_URL
 
-			//if (!backendUrl) throw new Error("VITE_BACKEND_URL is not defined in .env file")
+			if (!backendUrl) throw new Error("VITE_BACKEND_URL is not defined in .env file")
 
-			//const response = await fetch(backendUrl + "/api/hello")
-			//const data = await response.json()
+			const response = await fetch(backendUrl + "/api/hello")
+			const data = await response.json()
 
-			//if (response.ok) dispatch({ type: "set_hello", payload: data.message })
+			if (response.ok) dispatch({ type: "set_hello", payload: data.message })
 
-			//return data
+			return data
 
-		//} catch (error) {
-		//	if (error.message) throw new Error(
-			//	`Could not fetch the message from the backend.
-			//	Please check if the backend is running and the backend port is public.`
-			//);
-		//}
+		} catch (error) {
+			if (error.message) throw new Error(
+				`Could not fetch the message from the backend.
+				Please check if the backend is running and the backend port is public.`
+			);
+		}
 
-	//}
+	}
 
-	//useEffect(() => {
-		//loadMessage()
-	//}, [])
+	useEffect(() => {
+		loadMessage()
+	}, [])
 
 	return (
     <div className="container">
