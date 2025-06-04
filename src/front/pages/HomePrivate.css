@@ -1,0 +1,50 @@
+.home-private-container {
+    min-height: 100vh;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #23322D;
+    padding: 2rem;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+}
+
+.player-name {
+    margin-bottom: 0;
+    color: white;
+    font-weight: bold;
+}
+
+.badge-custom {
+    padding: 0.6rem 1rem;
+    font-size: 1.2rem;
+    border-radius: 12px;
+}
+
+.badge-custom.brain {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-custom.diamond {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.badge-custom.puzzle {
+    background-color: #9170CB;
+    color: white;
+}
+
+.play-button {
+    background-color: #D6B770 !important;
+    border-color: #9170CB !important;
+    color: #23322D !important;
+    font-weight: bold;
+    padding: 1rem 3rem;
+}
