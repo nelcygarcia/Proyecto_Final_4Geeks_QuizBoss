@@ -14,6 +14,9 @@ class User(db.Model):
     avatar: Mapped[str] = mapped_column(String(255), nullable=False)
     experiencia: Mapped[int] = mapped_column(Integer, nullable=False)
 
+
+    partidas: Mapped[list["Partida"]] = relationship("Partida", back_populates="user")
+
     def serialize(self):
         return {
             "id": self.id,
@@ -56,6 +59,6 @@ class Partida(db.Model):
     pregunta_id: Mapped[int] = mapped_column(ForeignKey("preguntas.id"), nullable=False)
     respuestas_user: Mapped[int] = mapped_column(ForeignKey("respuestas_user.id"), nullable=False)
 
-    user: Mapped["User"] = relationship("user", back_populates="partidas")
+    user: Mapped["User"] = relationship("User", back_populates="partidas")
     pregunta: Mapped["Preguntas"] = relationship("Preguntas", back_populates="partidas")
     respuesta: Mapped["RespuestasUser"] = relationship("RespuestasUser", back_populates="partida")
