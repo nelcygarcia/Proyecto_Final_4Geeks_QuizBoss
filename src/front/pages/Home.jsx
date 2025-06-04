@@ -1,52 +1,54 @@
-import React, { useEffect } from "react"
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+//import React, { useEffect } from "react"
+import quizBossLogo from '../assets/img/quizboss-logo.jpg';
+//import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import "../index.css";
 
 export const Home = () => {
+//export const Home = () => {
 
-	const { store, dispatch } = useGlobalReducer()
+	//const { store, dispatch } = useGlobalReducer()
 
-	const loadMessage = async () => {
-		try {
-			const backendUrl = import.meta.env.VITE_BACKEND_URL
+	//const loadMessage = async () => {
+		//try {
+			//const backendUrl = import.meta.env.VITE_BACKEND_URL
 
-			if (!backendUrl) throw new Error("VITE_BACKEND_URL is not defined in .env file")
+			//if (!backendUrl) throw new Error("VITE_BACKEND_URL is not defined in .env file")
 
-			const response = await fetch(backendUrl + "/api/hello")
-			const data = await response.json()
+			//const response = await fetch(backendUrl + "/api/hello")
+			//const data = await response.json()
 
-			if (response.ok) dispatch({ type: "set_hello", payload: data.message })
+			//if (response.ok) dispatch({ type: "set_hello", payload: data.message })
 
-			return data
+			//return data
 
-		} catch (error) {
-			if (error.message) throw new Error(
-				`Could not fetch the message from the backend.
-				Please check if the backend is running and the backend port is public.`
-			);
-		}
+		//} catch (error) {
+		//	if (error.message) throw new Error(
+			//	`Could not fetch the message from the backend.
+			//	Please check if the backend is running and the backend port is public.`
+			//);
+		//}
 
-	}
+	//}
 
-	useEffect(() => {
-		loadMessage()
-	}, [])
+	//useEffect(() => {
+		//loadMessage()
+	//}, [])
 
 	return (
-		<div className="text-center mt-5">
-			<h1 className="display-4">Hello Rigo!!</h1>
-			<p className="lead">
-				<img src={rigoImageUrl} className="img-fluid rounded-circle mb-3" alt="Rigo Baby" />
-			</p>
-			<div className="alert alert-info">
-				{store.message ? (
-					<span>{store.message}</span>
-				) : (
-					<span className="text-danger">
-						Loading message from the backend (make sure your python 🐍 backend is running)...
-					</span>
-				)}
-			</div>
-		</div>
-	);
-}; 
+    <div className="container">
+      <img src={quizBossLogo} alt="Quiz Boss Logo" className="logo" />
+      <h1>Bienvenido a <span className="highlight">Quiz Boss</span></h1>
+      <div className="auth-buttons">
+        <button>Registrarse</button>
+        <button>Iniciar Sesión</button>
+        <button>Recuperar Contraseña</button>
+      </div>
+      <div className="instructions">
+        <h2>¿Cómo jugar?</h2>
+        <p>Responde preguntas, gana puntos y conviértete en el jefe del conocimiento.</p>
+      </div>
+      <footer>&copy; 2025 Quiz Boss. Todos los derechos reservados.</footer>
+    </div>
+  );
+};
+
