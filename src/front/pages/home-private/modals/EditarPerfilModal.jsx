@@ -5,7 +5,8 @@ export const EditarPerfilModal = ({ show, onClose }) => {
     const dummyData = {
         nombre: "Nelcy",
         experiencia: 2400,
-        ranking_user: "Oro III"
+        ranking_user: "Oro III",
+        email: "nelcy@email.com"
     };
 
     const { dispatch } = useGlobalReducer(); // ← Aquí obtienes el dispatch global
@@ -68,6 +69,15 @@ export const EditarPerfilModal = ({ show, onClose }) => {
                             <p><strong>👤 Nombre de usuario:</strong> {dummyData.nombre}</p>
                             <p><strong>⭐ Experiencia:</strong> {dummyData.experiencia} XP</p>
                             <p><strong>🏆 Ranking:</strong> {dummyData.ranking_user}</p>
+                            <p><strong>📧 Email:</strong> {dummyData.email}</p>
+                            <div className="d-flex align-items-center justify-content-between">
+                                <p className="mb-0">
+                                    <strong>🔒 Contraseña:</strong> ********
+                                </p>
+                                <button className="btn btn-sm btn-outline-secondary ms-3">
+                                    Cambiar contraseña
+                                </button>
+                            </div>
                         </div>
                     </div>
 
