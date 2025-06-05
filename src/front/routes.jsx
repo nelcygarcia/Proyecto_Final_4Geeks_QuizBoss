@@ -10,7 +10,7 @@ import { Home } from "./pages/Home";
 import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import SalaDeJuego from "./pages/SalaDeJuego";
-import { HomePrivate } from "./pages/HomePrivate";
+import { HomePrivate } from "./pages/home-private/HomePrivate";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
