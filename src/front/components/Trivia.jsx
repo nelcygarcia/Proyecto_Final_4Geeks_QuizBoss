@@ -10,7 +10,7 @@ export default function Trivia() {
     const response = await fetch("https://api.perplexity.ai/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer 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`,
+        "Authorization": `Bearer ${import.meta.env.VITE_PERPLEXITY_API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
