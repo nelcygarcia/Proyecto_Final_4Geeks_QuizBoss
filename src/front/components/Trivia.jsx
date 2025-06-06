@@ -7,6 +7,7 @@ export default function Trivia() {
   async function generarTrivia() {
     setLoading(true);
     setTrivia(null);
+    
     const response = await fetch("https://api.perplexity.ai/chat/completions", {
       method: "POST",
       headers: {
