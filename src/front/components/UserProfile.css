@@ -1,0 +1,34 @@
+.user-profile-box {
+  background-color: var(--dark-color);
+  color: var(--text-light);
+  width: 220px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+}
+
+.user-avatar-emoji {
+  font-size: 2em;
+  margin-right: 0.5rem;
+}
+
+.user-name {
+  color: var(--text-light);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.score-star {
+  font-size: 1.5em;
+  margin-right: 0.25rem;
+}
+
+.score-number {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+}

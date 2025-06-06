@@ -1,5 +1,6 @@
 export const initialStore=()=>{
   return{
+    avatar: "/avatars/1.PNG",
     message: null,
     todos: [
       {
@@ -23,6 +24,12 @@ export default function storeReducer(store, action = {}) {
         ...store,
         message: action.payload
       };
+
+      case 'set_avatar':
+    return {
+      ...store,
+      avatar: action.payload
+    };
       
     case 'add_task':
 
