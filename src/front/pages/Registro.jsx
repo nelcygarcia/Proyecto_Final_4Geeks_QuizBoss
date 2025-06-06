@@ -19,7 +19,7 @@ export const Registro = () => {
       return;
     }
 
-    fetch("https://scaling-halibut-7v66jqg7rxvhwxjp-3001.app.github.dev/api/signup", {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
