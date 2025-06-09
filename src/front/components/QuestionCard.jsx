@@ -6,7 +6,7 @@ const QuestionCard = ({ question, feedback, selectedAnswerButton, timeLeft, onAn
     <div className="question-card p-4 rounded shadow d-flex flex-column align-items-center">
       <div className="timer-display mb-4">
         <span>Tiempo restante: </span>
-        <span className={`timer-number ${timeLeft <= 10 ? 'timer-warning' : ''}`}>{timeLeft}s</span>
+        <span className={`timer-number ${timeLeft <= 5 ? 'timer-warning' : ''}`}>{timeLeft}s</span>
       </div>
       <h2 className="mb-5 text-center question-text">{question.question}</h2>
 

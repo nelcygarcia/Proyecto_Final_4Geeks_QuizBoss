@@ -14,24 +14,21 @@ const shuffleArray = (array) => {
 
 const useGameLogic = () => {
   const [userName] = useState('David Duego');
-  // Inicializa shuffledQuestions directamente para asegurar que siempre haya preguntas
   const [shuffledQuestions, setShuffledQuestions] = useState(() => shuffleArray([...allQuestions]));
   const [questionIndex, setQuestionIndex] = useState(0);
-  // currentQuestion se inicializa con la primera pregunta del array ya aleatorio 
-  const [currentQuestion, setCurrentQuestion] = useState(shuffledQuestions.length > 0 ? shuffledQuestions[0] : null);
-
+  const [currentQuestion, setCurrentQuestion] = useState(null);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState(null);
   const [selectedAnswerButton, setSelectedAnswerButton] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(30);
+  const [timeLeft, setTimeLeft] = useState(15);
+  const [gameStatus, setGameStatus] = useState('idle');
   const timerRef = useRef(null);
 
   const startTimer = () => {
-    
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
-    setTimeLeft(30);
+    setTimeLeft(15);
     timerRef.current = setInterval(() => {
       setTimeLeft(prevTime => {
         if (prevTime <= 1) {
@@ -44,60 +41,73 @@ const useGameLogic = () => {
     }, 1000);
   };
 
-  const resetGame = (finalScore = 0) => {
-    //console.log('resetGame llamado, puntuación final:', finalScore);
-    alert(`¡Juego terminado! Tu puntuación final es: ${finalScore} de ${shuffledQuestions.length}`);
-    const restartedShuffledQuestions = shuffleArray([...allQuestions]);
-    setShuffledQuestions(restartedShuffledQuestions);
+  const restartGameInternal = (finalScore = 0) => {
+    if (gameStatus === 'playing') {
+      alert(`¡Juego terminado! Tu puntuación final es: ${finalScore} de ${shuffledQuestions.length}`);
+    }
     setQuestionIndex(0);
+    setCurrentQuestion(shuffledQuestions.length > 0 ? shuffledQuestions[0] : null);
     setScore(0);
-    // Asegurarse de que setCurrentQuestion siempre tenga un valor válido al reiniciar
-    setCurrentQuestion(restartedShuffledQuestions.length > 0 ? restartedShuffledQuestions[0] : null);
-    startTimer();
+    setFeedback(null);
+    setSelectedAnswerButton(null);
+    setGameStatus('playing');
+  };
+
+  const startNewGameInternal = () => {
+    const newlyShuffledQuestions = shuffleArray([...allQuestions]);
+    setShuffledQuestions(newlyShuffledQuestions);
+    setQuestionIndex(0);
+    setCurrentQuestion(newlyShuffledQuestions.length > 0 ? newlyShuffledQuestions[0] : null);
+    setScore(0);
+    setFeedback(null);
+    setSelectedAnswerButton(null);
+    setGameStatus('playing');
   };
 
   const handleTimeUp = () => {
-    console.log('handleTimeUp llamado. Pregunta actual:', currentQuestion);
     if (!currentQuestion) {
-        // Aquí podríamos añadir un setFeedback('incorrect') y avanzar si aún así se da
-        // setFeedback('incorrect');
-        // setTimeout(() => {
-        //     setFeedback(null);
-        //     const nextQuestionIndex = questionIndex + 1;
-        //     if (nextQuestionIndex < shuffledQuestions.length) {
-        //         setQuestionIndex(nextQuestionIndex);
-        //         setCurrentQuestion(shuffledQuestions[nextQuestionIndex]);
-        //         startTimer();
-        //     } else {
-        //         resetGame(score);
-        //     }
-        // }, 0); 
-        return; // Retornamos para evitar errores si por alguna razón sigue siendo null
+        return;
     }
 
     setFeedback('incorrect');
     setSelectedAnswerButton(null);
 
     setTimeout(() => {
-      console.log('Transición completada. Pasa a la siguiente pregunta');
       setFeedback(null);
-      setSelectedAnswerButton(null); // Asegurarse de que se deseleccione el botón
+      setSelectedAnswerButton(null);
       const nextQuestionIndex = questionIndex + 1;
+
       if (nextQuestionIndex < shuffledQuestions.length) {
-        
         setQuestionIndex(nextQuestionIndex);
         setCurrentQuestion(shuffledQuestions[nextQuestionIndex]);
-        startTimer();
       } else {
-        
-        resetGame(score);
+        setGameStatus('gameOver');
+        clearInterval(timerRef.current);
       }
     }, 2000);
   };
 
-  // El useEffect inicial ahora solo inicia el timer, ya que las preguntas ya están inicializadas
+  const startGame = () => {
+    setGameStatus('playing');
+    const initialShuffled = shuffleArray([...allQuestions]);
+    setShuffledQuestions(initialShuffled);
+    setQuestionIndex(0);
+    setCurrentQuestion(initialShuffled.length > 0 ? initialShuffled[0] : null);
+    setScore(0);
+    setFeedback(null);
+    setSelectedAnswerButton(null);
+  };
+
+  const startRematch = () => {
+    restartGameInternal(score);
+  };
+
+  const startNewGame = () => {
+    startNewGameInternal();
+  };
+
   useEffect(() => {
-    if (shuffledQuestions.length > 0) {
+    if (gameStatus === 'playing' && currentQuestion) {
       startTimer();
     }
     return () => {
@@ -105,10 +115,10 @@ const useGameLogic = () => {
         clearInterval(timerRef.current);
       }
     };
-  }, []); 
+  }, [gameStatus, currentQuestion]);
 
   const handleAnswerSelected = (selectedAnswer, buttonIndex) => {
-    if (!currentQuestion || feedback) return;
+    if (!currentQuestion || feedback || gameStatus !== 'playing') return;
 
     clearInterval(timerRef.current);
     setSelectedAnswerButton(buttonIndex);
@@ -127,12 +137,14 @@ const useGameLogic = () => {
       if (nextQuestionIndex < shuffledQuestions.length) {
         setQuestionIndex(nextQuestionIndex);
         setCurrentQuestion(shuffledQuestions[nextQuestionIndex]);
-        startTimer();
       } else {
-        resetGame(score + (selectedAnswer === currentQuestion.correctAnswer ? 1 : 0));
+        setGameStatus('gameOver');
+        clearInterval(timerRef.current);
       }
     }, 2000);
   };
+
+  const totalQuestions = allQuestions.length;
 
   return {
     userName,
@@ -141,8 +153,12 @@ const useGameLogic = () => {
     feedback,
     selectedAnswerButton,
     timeLeft,
+    gameStatus,
+    totalQuestions,
     handleAnswerSelected,
-    resetGame,
+    startGame,
+    startRematch,
+    startNewGame,
   };
 };
 
