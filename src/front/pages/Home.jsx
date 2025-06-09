@@ -12,8 +12,7 @@ export const Home = () => {
 			<h1>Bienvenido a <span className="highlight">Quiz Boss</span></h1>
 			<div className="auth-buttons">
 				<button onClick={() => navigate("/register")}>Registrarse</button>
-				<button>Iniciar Sesión</button>
-				<button>Recuperar Contraseña</button>
+				<button onClick={() => navigate("/login")}>Iniciar Sesión</button>
 			</div>
 			<div className="instructions">
 				<h2>¿Cómo jugar?</h2>
