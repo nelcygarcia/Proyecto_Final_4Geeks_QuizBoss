@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
+import useGlobalReducer from "../hooks/useGlobalReducer"
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -8,6 +9,7 @@ export const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+  const { dispatch } = useGlobalReducer();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +21,7 @@ export const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_name: username, // corregido aquí
+          user_name: username, 
           password: password,
         }),
       });
@@ -27,7 +29,14 @@ export const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Guardar en localStorage
+        dispatch({
+          type: "SET_AUTH",
+          payload: {
+          token: data.token,
+          user_id: data.user_id,
+          },
+        });
+
         localStorage.setItem("token", data.token);
         localStorage.setItem("user_id", data.user_id);
 

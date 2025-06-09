@@ -59,7 +59,7 @@
   transition: background-color 0.3s ease;
 }
 
-.login-form button:hover {
+.login-form button:hover:not(.login-recover) {
   background-color: #c9a75c;
 }
 
