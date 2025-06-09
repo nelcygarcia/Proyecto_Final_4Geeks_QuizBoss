@@ -113,7 +113,7 @@ def recover_password():
         return jsonify({"msg": "Usuario no encontrado"}), 404
 
     reset_token = create_access_token(
-        identity=user.id,
+        identity= User.id,
         expires_delta=timedelta(minutes=15),
         additional_claims={"pw_reset": True}
         )
@@ -122,7 +122,7 @@ def recover_password():
     reset_link = f"http://localhost:3000/reset-password?token={reset_token}"
 
     # Enviar el enlace por correo o imprimirlo (simulación)
-    print(f"Enlace de recuperación enviado a {user.email}: {reset_link}")
+    print(f"Enlace de recuperación enviado a {User.email}: {reset_link}")
 
     return jsonify({"msg": "Correo de recuperación enviado"}), 200
 
