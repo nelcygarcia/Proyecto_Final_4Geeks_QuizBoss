@@ -29,7 +29,7 @@ export const Registro = () => {
         user_name: username,
         password: password,
         ranking_user: 0,
-        avatar: "",
+        avatar: "public/avatars/2.PNG", //Pendiente de revisión
         experiencia: 0
       })
     })

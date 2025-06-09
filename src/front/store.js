@@ -2,6 +2,11 @@ export const initialStore=()=>{
   return{
     avatar: "/avatars/1.PNG",
     message: null,
+    auth: {
+      token: null,
+      user_id: null,
+    },
+
     todos: [
       {
         id: 1,
@@ -39,7 +44,35 @@ export default function storeReducer(store, action = {}) {
         ...store,
         todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
       };
+
+    case 'login':
+      return {
+        ...store,
+        message: action.payload
+      };
+    
+        case 'SET_AUTH':
+      return {
+        ...store,
+        auth: {
+          token: action.payload.token,
+          user_id: action.payload.user_id
+        }
+      };
+
+    case 'logout':
+      return {
+        ...store,
+        auth: {
+          token: null,
+          user_id: null
+        }
+      };
+
+
     default:
       throw Error('Unknown action.');
   }    
 }
+
+    
