@@ -1,0 +1,61 @@
+/* src/front/components/GameOverScreen.css */
+
+.game-over-screen {
+  background-color: var(--dark-color);
+  padding: 3rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-over-screen h1 {
+  color: var(--text-light);
+}
+
+.game-over-screen p {
+  color: var(--text-light);
+}
+
+.score-final {
+  color: var(--accent-color); 
+  font-weight: bold;
+}
+
+.score-total {
+  color: var(--text-light);
+  font-weight: bold;
+}
+
+.game-over-button {
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 0.6rem 1.5rem;
+  margin-bottom: 0.75rem; 
+  transition: transform 0.2s ease;
+}
+
+.game-over-button:hover {
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background-color: var(--success-color) !important;
+  border-color: var(--success-color) !important;
+}
+
+.btn-info {
+  background-color: #0dcaf0 !important; 
+  border-color: #0dcaf0 !important;
+  color: var(--dark-color) !important; 
+}
+
+.btn-secondary {
+  background-color: #6c757d !important; 
+  border-color: #6c757d !important;
+}

@@ -1,3 +1,5 @@
+/* src/front/pages/davidPages/SalaDeJuego.css */
+
 :root {
   --background-color: #5ea9a7;
   --dark-color: #23322d;
@@ -7,6 +9,21 @@
   --text-dark: #23322d;
   --success-color: green;
   --danger-color: red;
+  --primary-color: #0d6efd;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 .game-container {
@@ -17,11 +34,33 @@
 }
 
 .game-header {
-  height: 100px;
+  height: 100px; /* Un poco más alto para el botón y perfil */
   padding: 1rem;
   display: flex;
-  justify-content: space-between; 
-  align-items: flex-start;
-  position: relative; 
+  justify-content: space-between; /* Para que el botón de inicio y el perfil estén en los extremos */
+  align-items: flex-start; /* Alineados arriba */
+  position: relative; /* Para posicionar elementos internos si fuera necesario */
 }
 
+.game-main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* --- Estos estilos fueron movidos a GameStartScreen.css, GameOverScreen.css, QuestionCard.css, UserProfile.css, HomeButton.css --- */
+/*
+.start-screen { ... }
+.start-game-button { ... }
+.game-over-screen { ... }
+.game-over-button { ... }
+.user-profile-box { ... }
+.question-card { ... }
+.timer-display { ... }
+.answer-button { ... }
+*/
+
+/* Si por alguna razón los tienes duplicados, asegúrate de eliminarlos de aquí */
+/* y confiar en los CSS de los componentes individuales */

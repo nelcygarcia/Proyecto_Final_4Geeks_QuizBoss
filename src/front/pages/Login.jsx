@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import useGlobalReducer from "../hooks/useGlobalReducer"
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -76,11 +77,22 @@ export const Login = () => {
           {errorMessage && <p className="login-error">{errorMessage}</p>}
           <button type="submit">Entrar</button>
           <button
-            className="login-recover"
-            onClick={() => navigate("/recover-password")}
+            className="login-home"
+            onClick={() => navigate("/")}
           >
-            ¿Olvidaste tu contraseña?
+          Volver al inicio
           </button>
+          <div className="login-links">
+            <Link to="/recover-password" className="login-link">
+              ¿Olvidaste tu contraseña?
+            </Link>
+            <p className="login-register-text">
+              ¿Todavía no tienes tu cuenta?{" "}
+              <Link to="/register" className="login-link">
+                ¡Crea tu cuenta aquí!
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>
