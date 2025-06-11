@@ -9,11 +9,11 @@ class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     user_name: Mapped[str] = mapped_column(String(50), nullable=False)
-    password: Mapped[str] = mapped_column(String(128), nullable=False)
+    password: Mapped[str] = mapped_column(String(200), nullable=False)
     ranking_user: Mapped[int] = mapped_column(Integer, nullable=False)
     avatar: Mapped[str] = mapped_column(String(255), nullable=False)
     experiencia: Mapped[int] = mapped_column(Integer, nullable=False)
-    reset_token: Mapped[str] = mapped_column(String(128), nullable=True)
+    reset_token: Mapped[str] = mapped_column(String(200), nullable=True)
     reset_token_expiration: Mapped[int] = mapped_column(Integer, nullable=True)
 
 
