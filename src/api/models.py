@@ -13,6 +13,8 @@ class User(db.Model):
     ranking_user: Mapped[int] = mapped_column(Integer, nullable=False)
     avatar: Mapped[str] = mapped_column(String(255), nullable=False)
     experiencia: Mapped[int] = mapped_column(Integer, nullable=False)
+    reset_token: Mapped[str] = mapped_column(String(128), nullable=True)
+    reset_token_expiration: Mapped[int] = mapped_column(Integer, nullable=True)
 
 
     partidas: Mapped[list["Partida"]] = relationship("Partida", back_populates="user")
