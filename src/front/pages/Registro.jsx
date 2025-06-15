@@ -29,7 +29,7 @@ export const Registro = () => {
         user_name: username,
         password: password,
         ranking_user: 0,
-        avatar: "",
+        avatar: "./public/avatars/2.PNG", //Pendiente de revisión
         experiencia: 0
       })
     })
@@ -93,6 +93,12 @@ export const Registro = () => {
             required
           />
           <button type="submit">Registrarse</button>
+          <button
+            className="login-home"
+            onClick={() => navigate("/")}
+          >
+          Volver al inicio
+          </button>
         </form>
       </div>
     </div>

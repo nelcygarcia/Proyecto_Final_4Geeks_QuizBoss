@@ -8,6 +8,9 @@ import { Home } from "./pages/Home";
 import SalaDeJuego from "./pages/davidPages/SalaDeJuego";
 import { HomePrivate } from "./pages/home-private/HomePrivate";
 import {Registro } from "./pages/Registro";
+import {Login } from "./pages/Login";
+import { ForgotPass } from "./pages/ForgotPass";
+import { ResetPass } from "./pages/ResetPass";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,9 +20,10 @@ export const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="/sala" element={<SalaDeJuego />} />
       <Route path="/homeprivate" element={<HomePrivate />} />
-      <Route path="/login" element={<h1>Login Page</h1>} />
+      <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Registro />} />
-      <Route path="/recover-password" element={<h1>Recover Password Page</h1>} />
+      <Route path="/recover" element={< ForgotPass />} />
+      <Route path="/reset" element={< ResetPass />} />
       
     </Route>
   )

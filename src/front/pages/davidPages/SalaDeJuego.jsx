@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SalaDeJuegos.css'; 
+import './SalaDeJuegos.css';
 
-
-import UserProfile from '../../components/UserProfile'; 
-import QuestionCard from '../../components/QuestionCard'; 
-import HomeButton from '../../components/HomeButton'; 
-import useGameLogic from '../../hooks/useGameLogic'; 
+import UserProfile from '../../components/UserProfile';
+import QuestionCard from '../../components/QuestionCard';
+import HomeButton from '../../components/HomeButton';
+import GameStartScreen from '../../components/GameStartScreen'; 
+import GameOverScreen from '../../components/GameOverScreen'; 
+import useGameLogic from '../../hooks/useGameLogic';
 
 const SalaDeJuego = () => {
   const navigate = useNavigate();
@@ -18,26 +19,24 @@ const SalaDeJuego = () => {
     feedback,
     selectedAnswerButton,
     timeLeft,
+    gameStatus,
+    totalQuestions, 
     handleAnswerSelected,
-  } = useGameLogic(); // El hook se encargará de toda la lógica interna
+    startGame,
+    startRematch, 
+    startNewGame, 
+  } = useGameLogic();
 
   const handleGoHome = () => {
-    // El hook useGameLogic limpia su timer interno al terminar.
-
     navigate('/');
   };
 
-  return (
-    <div className="game-container">
-      <header className="game-header d-flex justify-content-between align-items-start">
-        <div className="d-flex align-items-start">
-          <HomeButton onClick={handleGoHome} />
-          <UserProfile userName={userName} score={score} />
-        </div>
-      </header>
-
-      <main className="game-main flex-grow-1 d-flex justify-content-center align-items-center p-3">
-        {currentQuestion ? (
+  const renderGameContent = () => {
+    switch (gameStatus) {
+      case 'idle':
+        return <GameStartScreen onStartGame={startGame} />;
+      case 'playing':
+        return currentQuestion ? (
           <QuestionCard
             question={currentQuestion}
             feedback={feedback}
@@ -48,9 +47,40 @@ const SalaDeJuego = () => {
           />
         ) : (
           <div className="text-center">
-            <h2 className="text-muted">Cargando preguntas o juego terminado...</h2>
+            <h2 className="text-muted">Cargando preguntas...</h2>
           </div>
-        )}
+        );
+      case 'gameOver':
+        return (
+          <GameOverScreen
+            score={score}
+            totalQuestions={totalQuestions}
+            onRematch={startRematch}
+            onNewGame={startNewGame}
+            onGoHome={handleGoHome} 
+          />
+        );
+      default:
+        return (
+          <div className="text-center text-light">
+            <h2>Estado desconocido del juego.</h2>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="game-container">
+      <header className="game-header d-flex justify-content-between align-items-start">
+        <div className="d-flex align-items-start">
+     
+          <HomeButton onClick={handleGoHome} />
+          {gameStatus === 'playing' && <UserProfile userName={userName} score={score} />}
+        </div>
+      </header>
+
+      <main className="game-main flex-grow-1 d-flex justify-content-center align-items-center p-3">
+        {renderGameContent()}
       </main>
     </div>
   );
