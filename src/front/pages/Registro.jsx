@@ -19,7 +19,8 @@ export const Registro = () => {
       return;
     }
 
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/signup`, {
+    //fetch(`${import.meta.env.VITE_BACKEND_URL}/api/signup`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL.replace(/\/$/, '')}/api/signup`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -62,6 +63,18 @@ export const Registro = () => {
   return (
     <div className="registro-container">
       <div className="registro-card">
+        <div className="registro-home-container">
+        <button className="registro-home" onClick={() => navigate("/")}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+            viewBox="0 0 24 24"
+            className="home-icon"
+          >
+            <path d="M3 9.75L12 3l9 6.75v10.5a.75.75 0 01-.75.75h-5.25a.75.75 0 01-.75-.75V15a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75v5.25a.75.75 0 01-.75.75H3.75A.75.75 0 013 20.25V9.75z" />
+          </svg>
+        </button>
+      </div>
         <h1>Registro</h1>
         <form onSubmit={handleSubmit} className="registro-form">
           <input
@@ -93,12 +106,6 @@ export const Registro = () => {
             required
           />
           <button type="submit">Registrarse</button>
-          <button
-            className="login-home"
-            onClick={() => navigate("/")}
-          >
-          Volver al inicio
-          </button>
         </form>
       </div>
     </div>
