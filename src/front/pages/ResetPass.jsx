@@ -1,29 +1,54 @@
-export const ResetPass = () => {
+import { useState } from "react";
+// import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
+function ResetPassword() {
+  // const [searchParams] = useSearchParams();
+  // const token = searchParams.get("token");
+  const location = useLocation();
 
-    return (
-        <div>
-            <h1>Confirmar token </h1>
-            <p>Por favor, ingresa el token que te enviamos por correo electrónico para restablecer tu contraseña.</p>
-            <form>
-                <div className="mb-4">
-                    <label htmlFor="token">Token</label>
-                    <input
-                        type="text" id="token" name="token" required
-                    />
-                </div>
-                <button
-                    type="submit"
-                >
-                    Confirmar Token
-                </button>
-            </form>
-            <p>
-                Si no recibiste el token, revisa tu bandeja de entrada o carpeta de spam.
-            </p>
-            <p>
-                Si tienes problemas, <a href="/forgot-password" className="text-blue-600 hover:underline">intenta nuevamente</a>.
-            </p>
-        </div>
-    );
-};
+  const [newPassword, setNewPassword] = useState("");
+  const [msg, setMsg] = useState("");
+
+  const queryParams = new URLSearchParams(location.search);
+  const token = decodeURIComponent(queryParams.get("token") || "");
+
+  const handleReset = async (e) => {
+    e.preventDefault();
+    setMsg("");
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/reset_password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: token,
+          new_password: newPassword,
+        }),
+      });
+
+      const data = await res.json();
+      setMsg(data.msg);
+    } catch (err) {
+      setMsg("Error al cambiar la contraseña");
+    }
+  };
+
+  return (
+    <div>
+      <h1>Restablecer contraseña</h1>
+      <form onSubmit={handleReset}>
+        <input
+          type="password"
+          placeholder="Nueva contraseña"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <button type="submit">Restablecer</button>
+      </form>
+      {msg && <p>{msg}</p>}
+    </div>
+  );
+}
+
+export default ResetPassword;
