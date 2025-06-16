@@ -1,27 +1,33 @@
 import { useState } from "react";
 import { EditarPerfilModal } from "../pages/home-private/modals/EditarPerfilModal";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-//import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
-export const CustomNavbar = ({ playerName = "Jugador" }) => {
 
-	const { store } = useGlobalReducer();
+export const CustomNavbar = () => {
+	const { store, dispatch } = useGlobalReducer();
+	const navigate = useNavigate();
 
 	const avatarUrl = store.avatar;
-	const userName = "Nelcy";
-	const userLevel = 5;
-
+	const user = store.userData;
 	const [showModal, setShowModal] = useState(false);
 
 	const handleProfileClick = () => setShowModal(true);
 	const handleCloseModal = () => setShowModal(false);
+
+	const handleLogout = () => {
+		dispatch({ type: "logout" });
+		navigate("/");
+	};
+
+	if (!user) return null; // evita errores si el usuario aún no está cargado
 
 	return (
 		<>
 			<nav className="navbar navbar-dark bg-dark fixed-top w-100 shadow">
 				<div className="container-fluid d-flex justify-content-between align-items-center py-2 px-4">
 
-
+					{/* Perfil con avatar y nombre */}
 					<div className="d-flex align-items-center gap-3" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
 						<img
 							src={avatarUrl}
@@ -31,18 +37,21 @@ export const CustomNavbar = ({ playerName = "Jugador" }) => {
 							height="40"
 						/>
 						<div className="text-white">
-							<strong>{playerName}</strong>
+							<strong>{user.user_name}</strong>
 							<div className="small">
-								Nivel {userLevel} <i className="fas fa-brain text-warning ms-1"></i>
+								Ranking {user.ranking_user} <i className="fas fa-brain text-warning ms-1"></i>
 							</div>
 						</div>
 					</div>
 
-					<button className="btn btn-outline-light btn-sm">
+					{/* Botón de logout (aún sin funcionalidad) */}
+					<button className="btn btn-outline-light btn-sm" onClick={handleLogout}>
 						<i className="fas fa-sign-out-alt me-1"></i> Salir
 					</button>
 				</div>
 			</nav>
+
+			{/* Modal para editar perfil */}
 			<EditarPerfilModal show={showModal} onClose={handleCloseModal} />
 		</>
 	);
