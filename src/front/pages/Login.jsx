@@ -56,56 +56,56 @@ export const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <div className="login-home-container">
-          <button className="login-home" onClick={() => navigate("/")}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="white"
-              viewBox="0 0 24 24"
-              className="home-icon"
-            >
-              <path d="M3 9.75L12 3l9 6.75v10.5a.75.75 0 01-.75.75h-5.25a.75.75 0 01-.75-.75V15a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75v5.25a.75.75 0 01-.75.75H3.75A.75.75 0 013 20.25V9.75z" />
-            </svg>
-          </button>
-        </div>
-
-        <h1>Inicio sesión</h1>
-
-        <form className="login-form" onSubmit={handleLogin}>
-          <input
-            type="text"
-            placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {errorMessage && <p className="login-error">{errorMessage}</p>}
-          <button className="login-private" onClick={() => handleLogin()}>
-            Entrar
-          </button>
-
-          <div className="login-links">
-            <Link to="/recover" className="login-link">
-              ¿Olvidaste tu contraseña?
-            </Link>
-            <p className="login-register-text">
-              ¿Todavía no tienes tu cuenta?{" "}
-              <Link to="/register" className="login-link">
-                ¡Crea tu cuenta aquí!
-              </Link>
-            </p>
-          </div>
-        </form>
+  <div className="login-container">
+    <div className="login-card">
+      <div className="login-home-container">
+        <button className="login-home" onClick={() => navigate("/")}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="white"
+            viewBox="0 0 24 24"
+            className="home-icon"
+          >
+            <path d="M3 9.75L12 3l9 6.75v10.5a.75.75 0 01-.75.75h-5.25a.75.75 0 01-.75-.75V15a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75v5.25a.75.75 0 01-.75.75H3.75A.75.75 0 013 20.25V9.75z" />
+          </svg>
+        </button>
       </div>
+
+      <h1>Inicio sesión</h1>
+
+      <form className="login-form" onSubmit={handleLogin}>
+        <input
+          type="text"
+          placeholder="Usuario"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        {errorMessage && <p className="login-error">{errorMessage}</p>}
+        <button className="login-private" onClick={() => navigate("/homeprivate")}>
+          Entrar
+        </button>
+
+        <div className="login-links">
+          <Link to="/recover" className="login-link">
+            ¿Olvidaste tu contraseña?
+          </Link>
+          <p className="login-register-text">
+            ¿Todavía no tienes tu cuenta?{" "}
+            <Link to="/register" className="login-link">
+              ¡Crea tu cuenta aquí!
+            </Link>
+          </p>
+        </div>
+      </form>
     </div>
-  );
+  </div>
+);
 };

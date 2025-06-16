@@ -70,7 +70,7 @@
 .login-home-container {
   display: flex;
   justify-content: flex-end;
-  width: 100%;
+  width: 100%; 
 }
 
 .login-home {
