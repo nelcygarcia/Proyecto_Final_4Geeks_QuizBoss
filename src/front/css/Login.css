@@ -67,6 +67,30 @@
   text-align: center;
 }
 
+.login-home-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%; 
+}
+
+.login-home {
+  width: 40px;
+  height: 40px;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.home-icon {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
 .login-links {
   display: flex;
   flex-direction: column;
