@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import useGlobalReducer from "../../hooks/useGlobalReducer";
 import quizBossLogo from "../../assets/img/quizboss-logo.jpg";
 import { CustomNavbar } from "../../components/CustomNavbar";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useGlobalReducer from "../../hooks/useGlobalReducer";
+import quizBossLogo from "../../assets/img/quizboss-logo.jpg";
+import { CustomNavbar } from "../../components/CustomNavbar";
 
 export const HomePrivate = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -56,7 +61,7 @@ export const HomePrivate = () => {
 
             try {
                 const response = await fetch(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${user_id}`,
+                    `${import.meta.env.VITE_BACKEND_URL}api/usuarios/${user_id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -126,6 +131,48 @@ export const HomePrivate = () => {
                     className="img-fluid mb-3"
                     style={{ maxHeight: "350px", objectFit: "contain" }}
                 />
+        <>
+            <CustomNavbar playerName="Rigo" />
+            {/* Slider izquierdo */}
+            <div
+                className="position-fixed d-none d-md-block"
+                style={{
+                    top: "50%",
+                    left: "15vw",
+                    transform: "translateY(-50%)",
+                    width: "260px",
+                    zIndex: 1030
+                }}
+            >
+                <div className="alert alert-dark shadow-sm rounded-3 p-3 text-start">
+                    <strong>{frasesIzquierda[currentLeftPhraseIndex]}</strong>
+                </div>
+            </div>
+
+            {/* Slider derecho */}
+            <div
+                className="position-fixed d-none d-md-block"
+                style={{
+                    top: "50%",
+                    right: "15vw",
+                    transform: "translateY(-50%)",
+                    width: "260px",
+                    zIndex: 1030
+                }}
+            >
+                <div className="alert alert-dark shadow-sm rounded-3 p-3 text-end">
+                    <strong>{frasesDerecha[currentRightPhraseIndex]}</strong>
+                </div>
+            </div>
+
+            {/* Contenido principal */}
+            <div className="container-fluid d-flex flex-column align-items-center justify-content-center vh-100 text-white text-center">
+                <img
+                    src={quizBossLogo}
+                    alt="Banner partida"
+                    className="img-fluid mb-3"
+                    style={{ maxHeight: "350px", objectFit: "contain" }}
+                />
 
                 {store.message && <h2 className="mb-4">{store.message}</h2>}
 
@@ -138,7 +185,6 @@ export const HomePrivate = () => {
 
                 <button
                     className="btn btn-warning btn-lg shadow px-5 py-3 mb-3"
-                    onClick={() => navigate("/sala")}
                     style={{ fontSize: "1.8rem", borderRadius: "12px" }}
                 >
                     🎮 Iniciar Partida
@@ -147,3 +193,4 @@ export const HomePrivate = () => {
         </>
     );
 };
+
