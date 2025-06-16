@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 
 export default function Trivia() {
   const [trivia, setTrivia] = useState(null);
@@ -74,5 +74,5 @@ Debe tener 4 opciones de respuesta y marcar cuál es la correcta. Devuélvelo en
   `;
 }
 
-
+*/
 
