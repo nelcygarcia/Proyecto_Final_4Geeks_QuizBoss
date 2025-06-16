@@ -1,4 +1,4 @@
-export const allQuestions = [
+/*export const allQuestions = [
   {
     question: '¿Cuál es el océano más grande de la Tierra?',
     answers: ['Atlántico', 'Índico', 'Ártico', 'Pacífico'],
@@ -25,3 +25,4 @@ export const allQuestions = [
     correctAnswer: 'Albert Einstein',
   },
 ];
+*/

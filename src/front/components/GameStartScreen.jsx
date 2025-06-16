@@ -1,25 +1,53 @@
+// src/front/components/GameStartScreen.jsx
 import React from 'react';
-import PropTypes from 'prop-types'; // Para validación de props
-import './GameStartScreen.css'; 
 
-const GameStartScreen = ({ onStartGame }) => {
-  return (
-    <div className="start-screen d-flex flex-column align-items-center justify-content-center">
-      <h1 className="text-light mb-4">¡Bienvenido a QuizBoss!</h1>
-      <p className="text-light mb-5 fs-5">Pon a prueba tus conocimientos.</p>
-      <button
-        className="btn btn-primary btn-lg start-game-button"
-        onClick={onStartGame}
-      >
-        Empieza el Juego !
-      </button>
-    </div>
-  );
-};
+const GameStartScreen = ({ 
+    userName,
+    selectedCategory, 
+    setSelectedCategory, 
+    selectedDifficulty, 
+    setSelectedDifficulty, 
+    onStartGame, 
+    isLoading, 
+    error 
+}) => {
+    return (
+        <div className="start-screen"> 
+            <h1>Bienvenido, {userName}!</h1>
+            <p>¡Prepárate para el desafío de Trivia!</p>
 
+            <div > {/* */}
+                <label htmlFor="category-select">Selecciona una categoría:</label>
+                <select
+                    id="category-select"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                    <option value="cultura general">Cultura General</option>
+                    <option value="deportes">Deportes</option>
+                    <option value="peliculas">Películas</option>
+                    <option value="anime">Anime</option>
+                    <option value="ciencia">Ciencia</option>
+                </select>
 
-GameStartScreen.propTypes = {
-  onStartGame: PropTypes.func.isRequired,
+                <label htmlFor="difficulty-select">Selecciona la dificultad:</label>
+                <select
+                    id="difficulty-select"
+                    value={selectedDifficulty}
+                    onChange={(e) => setSelectedDifficulty(e.target.value)}
+                >
+                    <option value="facil">Fácil</option>
+                    <option value="normal">Normal</option>
+                    <option value="dificil">Difícil</option>
+                </select>
+            </div>
+
+            <button className="start-button" onClick={onStartGame} disabled={isLoading}>
+                {isLoading ? 'Cargando preguntas...' : 'Comenzar Juego'}
+            </button>
+            {error && <p className="error-message">{error}</p>}
+        </div>
+    );
 };
 
 export default GameStartScreen;
