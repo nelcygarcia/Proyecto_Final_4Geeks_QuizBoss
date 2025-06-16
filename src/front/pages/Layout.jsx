@@ -8,7 +8,7 @@ export const Layout = () => {
 
     return (
         <ScrollToTop>
-            {!isHome && <CustomNavbar playerName="Rigo" />}
+
             <main className="container-fluid px-0">
                 <Outlet />
             </main>
