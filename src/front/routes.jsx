@@ -9,6 +9,8 @@ import SalaDeJuego from "./pages/davidPages/SalaDeJuego";
 import { HomePrivate } from "./pages/home-private/HomePrivate";
 import {Registro } from "./pages/Registro";
 import {Login } from "./pages/Login";
+import  ForgotPass  from "./pages/ForgotPass";
+import  ResetPass  from "./pages/ResetPass";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

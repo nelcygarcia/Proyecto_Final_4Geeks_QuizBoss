@@ -2,28 +2,46 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
-from flask import Flask, request, jsonify, url_for, send_from_directory
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from api.extensions import Mail
 from flask_migrate import Migrate
-from flask_swagger import swagger
+# from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
 from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from dotenv import load_dotenv
+load_dotenv()
 
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../dist/')
+
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = "super-quizBoss"
 app.config['JWT_VERIFY_SUB'] = False
 CORS(app) 
 jwt = JWTManager(app)
 app.url_map.strict_slashes = False
+
+# set email configuration
+mail = Mail()
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'quizboss102@gmail.com'
+app.config['MAIL_PASSWORD'] = 'uccxjpzdaokjrcwb'
+app.config['MAIL_DEFAULT_SENDER'] = 'quizboss102@gmail.com'
+
+mail.init_app(app)
+
+
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
