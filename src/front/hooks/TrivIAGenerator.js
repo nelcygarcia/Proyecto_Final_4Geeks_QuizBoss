@@ -1,54 +1,41 @@
-
+// src/front/hooks/TrivIAGenerator.js
 import { useState } from "react";
 
+// Función auxiliar para crear el prompt para la IA
 function crearPrompt(categoria, dificultad) {
-  let categoriaEspecifica = '';
-  let ejemplosVariedad = ''; 
-3
+  let categoriaPrompt = '';
   switch (categoria.toLowerCase()) {
     case 'cultura general':
-      categoriaEspecifica = 'cultura general';
-      ejemplosVariedad = 'Por ejemplo: historia, geografía, ciencia básica, literatura, arte, eventos actuales, figuras famosas, etc. NO te centres en un único subtema.';
+      categoriaPrompt = 'cultura general';
       break;
     case 'deportes':
-      categoriaEspecifica = 'deportes';
-      ejemplosVariedad = 'Por ejemplo: fútbol, baloncesto, tenis, atletismo, natación, automovilismo, deportes olímpicos, reglas, récords, deportistas, etc. Asegura gran diversidad de disciplinas y no te quedes en un solo deporte.';
+      categoriaPrompt = 'deportes (por ejemplo, fútbol, baloncesto, atletismo)';
       break;
     case 'peliculas':
-      categoriaEspecifica = 'películas';
-      ejemplosVariedad = 'Por ejemplo: directores famosos, actores, géneros (ciencia ficción, comedia, drama), películas icónicas, bandas sonoras, premios (Óscar, Goyas), personajes, sagas. Asegura gran diversidad de temas y no te quedes en un solo género o franquicia.';
+      categoriaPrompt = 'películas (incluyendo directores, actores, géneros, tramas)';
       break;
     case 'anime':
-      categoriaEspecifica = 'anime';
-      ejemplosVariedad = 'Por ejemplo: series famosas, personajes principales, géneros (shonen, shojo, mecha, slice of life, etc), mangakas (autores de manga), estudios de animación, eventos o conceptos clave del anime. **CRUCIAL: Asegura una VARIEDAD EXTREMA y no repitas subtemas como "estudios" en varias preguntas.**';
+      categoriaPrompt = 'anime (series, personajes, géneros, creadores)';
       break;
     case 'ciencia':
-      categoriaEspecifica = 'ciencia';
-      ejemplosVariedad = 'Por ejemplo: física, química, biología, astronomía, ecología, geología, descubrimientos científicos, inventores. Asegura gran diversidad de ramas de la ciencia y no te quedes en una sola (e.g., solo física).';
+      categoriaPrompt = 'ciencia (química, física, biología, astronomía)';
       break;
     default:
-      categoriaEspecifica = 'cultura general';
-      ejemplosVariedad = 'Por ejemplo: historia, geografía, ciencia, literatura, arte, etc. Garantiza la variedad.';
+      categoriaPrompt = 'cultura general';
   }
 
   return `
-GENERAR UNA ÚNICA PREGUNTA DE TRIVIA.
+Crea una pregunta de trivia de dificultad ${dificultad.toUpperCase()} sobre el tema ${categoriaPrompt.toUpperCase()}.
+Asegúrate de que la pregunta y las opciones sean claras y relacionadas con la categoría.
+Debe tener 4 opciones de respuesta y marcar cuál es la correcta. Devuélvelo en formato JSON como este ejemplo:
 
-INSTRUCCIONES CRÍTICAS (DEBES SEGUIRLAS ESTRICTAMENTE):
-1. La pregunta debe ser de dificultad <span class="math-inline">\{dificultad\.toUpperCase\(\)\} y sobre el tema "</span>{categoriaEspecifica}".
-2. **VARIEDAD EXTREMA:** Asegúrate de que esta pregunta sea de un subtema COMPLETAMENTE DIFERENTE al de cualquier pregunta que pudieras haber generado antes en la misma categoría. No repitas subtemas. ${ejemplosVariedad}
-3. **CONCISIÓN MÁXIMA:** La pregunta debe ser CORTA, lo más concisa posible, pensada para leerse en MENOS DE 10 SEGUNDOS. No uses frases largas ni complejas.
-4. Proporciona 4 opciones de respuesta distintas y una única respuesta correcta.
-5. Formato de SALIDA JSON ESTRICTO:
 {
-  "question": "Texto de la pregunta corta y concisa",
-  "options": ["Opción 1", "Opción 2", "Opción 3", "Opción 4"],
-  "correct_answer": "La respuesta correcta"
+  "question": "¿Qué partícula subatómica tiene carga negativa?",
+  "options": ["Protón", "Neutrón", "Electrón", "Fotón"],
+  "correct_answer": "Electrón"
 }
   `;
 }
-
-// ... (el resto del código de TrivIAGenerator.js, incluyendo useTrivIAGenerator, se mantiene igual) ...
 
 
 const adaptQuestionFormat = (apiQuestion) => {
