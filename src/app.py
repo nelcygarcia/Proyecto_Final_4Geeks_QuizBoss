@@ -25,7 +25,7 @@ static_file_dir = os.path.join(os.path.dirname(
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = "super-quizBoss"
 app.config['JWT_VERIFY_SUB'] = False
-CORS(app) 
+CORS(app)
 jwt = JWTManager(app)
 app.url_map.strict_slashes = False
 
@@ -40,7 +40,6 @@ app.config['MAIL_PASSWORD'] = 'uccxjpzdaokjrcwb'
 app.config['MAIL_DEFAULT_SENDER'] = 'quizboss102@gmail.com'
 
 mail.init_app(app)
-
 
 
 # database condiguration
@@ -81,6 +80,8 @@ def sitemap():
     return send_from_directory(static_file_dir, 'index.html')
 
 # any other endpoint will try to serve it like a static file
+
+
 @app.route('/<path:path>', methods=['GET'])
 def serve_any_other_file(path):
     if not os.path.isfile(os.path.join(static_file_dir, path)):

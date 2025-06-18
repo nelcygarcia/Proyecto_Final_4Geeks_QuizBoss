@@ -1,17 +1,16 @@
 import { useState } from "react";
-// import { useSearchParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ResetPassword() {
-  // const [searchParams] = useSearchParams();
-  // const token = searchParams.get("token");
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [newPassword, setNewPassword] = useState("");
   const [msg, setMsg] = useState("");
 
   const queryParams = new URLSearchParams(location.search);
-  const token = decodeURIComponent(queryParams.get("token") || "");
+  const token = queryParams.get("token") || "";
 
   const handleReset = async (e) => {
     e.preventDefault();
@@ -32,7 +31,13 @@ function ResetPassword() {
     } catch (err) {
       setMsg("Error al cambiar la contraseña");
     }
-  };
+
+    if (data.msg === "Contraseña actualizada con éxito") {
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
+  }
 
   return (
     <div>
@@ -45,6 +50,12 @@ function ResetPassword() {
           onChange={(e) => setNewPassword(e.target.value)}
         />
         <button type="submit">Restablecer</button>
+        <p className="login-register-text">
+                    ¿Probamos de nuevo?{" "}
+                    <Link to="/login" className="login-link">
+                        Iniciar sesión
+                    </Link>
+                </p>
       </form>
       {msg && <p>{msg}</p>}
     </div>

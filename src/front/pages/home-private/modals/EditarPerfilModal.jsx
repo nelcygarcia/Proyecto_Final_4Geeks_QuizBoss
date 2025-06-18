@@ -1,25 +1,67 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useGlobalReducer from "../../../hooks/useGlobalReducer";
 
 export const EditarPerfilModal = ({ show, onClose }) => {
-    const dummyData = {
-        nombre: "Nelcy",
-        experiencia: 2400,
-        ranking_user: "Oro III",
-        email: "nelcy@email.com"
+    const { store, dispatch } = useGlobalReducer();
+    const user = store.userData;
+
+    const [avatarUrl, setAvatarUrl] = useState(store.avatar);
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
+    const [newPassword, setNewPassword] = useState("");
+
+    const avatarImages = Array.from({ length: 6 }, (_, i) => `/avatars/${i + 1}.PNG`);
+
+    useEffect(() => {
+        if (store.avatar) setAvatarUrl(store.avatar);
+    }, [store.avatar]);
+
+    // Reset al cerrar el modal
+    useEffect(() => {
+        if (!show) {
+            setIsChangingPassword(false);
+            setNewPassword("");
+        }
+    }, [show]);
+
+    const handleGuardar = async () => {
+        const payload = {
+            avatar: avatarUrl,
+        };
+
+        if (isChangingPassword && newPassword.trim()) {
+            payload.password = newPassword;
+        }
+
+        const user_id = store.auth.user_id || localStorage.getItem("user_id");
+
+        try {
+            const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${user_id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${store.auth.token}`,
+                },
+                body: JSON.stringify(payload),
+            });
+
+            console.log("resp", resp)
+
+            if (!resp.ok) throw new Error("Error al guardar los cambios");
+
+            const data = await resp.json();
+
+            dispatch({ type: "set_avatar", payload: data.avatar });
+            dispatch({ type: "set_user_data", payload: data });
+
+            setIsChangingPassword(false);
+            setNewPassword("");
+            onClose();
+        } catch (err) {
+            console.log(err);
+        }
     };
 
-    const { dispatch } = useGlobalReducer(); // ← Aquí obtienes el dispatch global
-    const [avatarUrl, setAvatarUrl] = useState("/avatars/1.PNG");
-
-    const avatarImages = Array.from({ length: 6 }, (_, i) =>
-        `/avatars/${i + 1}.PNG`
-    );
-
-    const handleGuardar = () => {
-        dispatch({ type: "set_avatar", payload: avatarUrl });
-        onClose();
-    };
+    if (!user) return null;
 
     return (
         <div className={`modal fade ${show ? "show d-block" : "d-none"}`} tabIndex="-1" role="dialog">
@@ -42,41 +84,65 @@ export const EditarPerfilModal = ({ show, onClose }) => {
                             <p className="mt-2 text-muted">Haz clic en un avatar para cambiarlo</p>
                         </div>
 
-                        <div className="mb-4">
-                            <div className="d-flex flex-wrap justify-content-center gap-2">
-                                {avatarImages.map((url, index) => (
-                                    <img
-                                        key={index}
-                                        src={url}
-                                        alt={`Avatar ${index + 1}`}
-                                        className="rounded-circle"
-                                        width="60"
-                                        height="60"
-                                        style={{
-                                            cursor: "pointer",
-                                            border: url === avatarUrl ? "3px solid #ffc107" : "1px solid #ccc",
-                                            padding: "2px"
-                                        }}
-                                        onClick={() => setAvatarUrl(url)}
-                                    />
-                                ))}
-                            </div>
+                        <div className="mb-4 d-flex flex-wrap justify-content-center gap-2">
+                            {avatarImages.map((url, index) => (
+                                <img
+                                    key={index}
+                                    src={url}
+                                    alt={`Avatar ${index + 1}`}
+                                    className="rounded-circle"
+                                    width="60"
+                                    height="60"
+                                    style={{
+                                        cursor: "pointer",
+                                        border: url === avatarUrl ? "3px solid #ffc107" : "1px solid #ccc",
+                                        padding: "2px"
+                                    }}
+                                    onClick={() => setAvatarUrl(url)}
+                                />
+                            ))}
                         </div>
 
                         <hr />
 
                         <div className="text-start px-3 text-black">
-                            <p><strong>👤 Nombre de usuario:</strong> {dummyData.nombre}</p>
-                            <p><strong>⭐ Experiencia:</strong> {dummyData.experiencia} XP</p>
-                            <p><strong>🏆 Ranking:</strong> {dummyData.ranking_user}</p>
-                            <p><strong>📧 Email:</strong> {dummyData.email}</p>
-                            <div className="d-flex align-items-center justify-content-between">
-                                <p className="mb-0">
-                                    <strong>🔒 Contraseña:</strong> ********
-                                </p>
-                                <button className="btn btn-sm btn-outline-secondary ms-3">
-                                    Cambiar contraseña
-                                </button>
+                            <p><strong>👤 Usuario:</strong> {user.user_name}</p>
+                            <p><strong>⭐ Experiencia:</strong> {user.experiencia} XP</p>
+                            <p><strong>🏆 Ranking:</strong> {user.ranking_user}</p>
+                            <p><strong>📧 Email:</strong> {user.email}</p>
+
+                            <div className="mb-2">
+                                <label className="form-label"><strong>🔒 Contraseña:</strong></label>
+                                {isChangingPassword ? (
+                                    <div className="d-flex">
+                                        <input
+                                            type="password"
+                                            className="form-control me-2"
+                                            value={newPassword}
+                                            onChange={(e) => setNewPassword(e.target.value)}
+                                            placeholder="Nueva contraseña"
+                                        />
+                                        <button
+                                            className="btn btn-outline-danger"
+                                            onClick={() => {
+                                                setIsChangingPassword(false);
+                                                setNewPassword("");
+                                            }}
+                                        >
+                                            ❌
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <span>********</span>
+                                        <button
+                                            className="btn btn-sm btn-outline-secondary ms-3"
+                                            onClick={() => setIsChangingPassword(true)}
+                                        >
+                                            Cambiar contraseña
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
