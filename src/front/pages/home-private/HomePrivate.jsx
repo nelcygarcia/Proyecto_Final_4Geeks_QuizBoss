@@ -56,7 +56,7 @@ export const HomePrivate = () => {
 
             try {
                 const response = await fetch(
-                    `${import.meta.env.VITE_BACKEND_URL}api/usuarios/${user_id}`,
+                    `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${user_id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
