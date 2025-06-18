@@ -73,25 +73,25 @@ export const Login = () => {
 
         <h1>Inicio sesión</h1>
 
-      <form className="login-form" onSubmit={handleLogin}>
-        <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        {errorMessage && <p className="login-error">{errorMessage}</p>}
-        <button className="login-private" type="submit">
-        Entrar
-        </button>
+        <form className="login-form" onSubmit={handleLogin}>
+          <input
+            type="text"
+            placeholder="Usuario"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          {errorMessage && <p className="login-error">{errorMessage}</p>}
+          <button className="login-private" onClick={() => handleLogin()}>
+            Entrar
+          </button>
 
           <div className="login-links">
             <Link to="/recover" className="login-link">
