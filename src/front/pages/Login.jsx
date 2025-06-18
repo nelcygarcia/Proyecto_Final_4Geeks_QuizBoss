@@ -89,8 +89,8 @@ export const Login = () => {
           required
         />
         {errorMessage && <p className="login-error">{errorMessage}</p>}
-        <button className="login-private" onClick={() => navigate("/homeprivate")}>
-          Entrar
+        <button className="login-private" type="submit">
+        Entrar
         </button>
 
         <div className="login-links">
