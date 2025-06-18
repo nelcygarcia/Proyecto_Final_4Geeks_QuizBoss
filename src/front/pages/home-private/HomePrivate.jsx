@@ -138,6 +138,7 @@ export const HomePrivate = () => {
 
                 <button
                     className="btn btn-warning btn-lg shadow px-5 py-3 mb-3"
+                    onClick={() => navigate("/sala")}
                     style={{ fontSize: "1.8rem", borderRadius: "12px" }}
                 >
                     🎮 Iniciar Partida
