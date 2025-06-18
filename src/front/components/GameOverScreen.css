@@ -2,7 +2,7 @@
 
 .game-over-screen {
   background-color: var(--dark-color);
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 0.75rem;
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
   text-align: center;
@@ -16,6 +16,7 @@
 
 .game-over-screen h1 {
   color: var(--text-light);
+  padding: 0.5rem 1.5rem;
 }
 
 .game-over-screen p {
@@ -34,9 +35,9 @@
 
 .game-over-button {
   width: 100%;
-  font-size: 1.2rem;
-  padding: 0.6rem 1.5rem;
-  margin-bottom: 0.75rem; 
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0.60rem; 
   transition: transform 0.2s ease;
 }
 
@@ -59,3 +60,4 @@
   background-color: #6c757d !important; 
   border-color: #6c757d !important;
 }
+
