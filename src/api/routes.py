@@ -123,36 +123,35 @@ def recover_password():
     if not data or 'email' not in data:
         return jsonify({"msg": "Email es requerido"}), 400
 
-    user= db.session.execute(select(User).where(
+    user = db.session.execute(select(User).where(
         User.email == data['email'])).scalar_one_or_none()
     if user is None:
         return jsonify({"msg": "Usuario no encontrado"}), 404
 
     reset_token = create_access_token(
-        identity=user.id,
+        identity=str(user.id),
         expires_delta=timedelta(minutes=15),
         additional_claims={"pw_reset": True}
     )
 
-    
-    # backend_url = os.environ.get("VITE_BACKEND_URL", "http://localhost:3000")
+    # backend_url = os.environ.get("", "http://localhost:3000")
     reset_link = f"https://automatic-fortnight-7v5pq5jqqvx9hw97-3000.app.github.dev/reset?token={reset_token}"
 
     if not isinstance(user.email, str) or not user.email.strip():
-     return jsonify({"msg": "Email inválido del usuario"}), 400
+        return jsonify({"msg": "Email inválido del usuario"}), 400
 
     print("DEBUG user.email:", user.email, "type:", type(user.email))
-    
+
     msg = Message(
         subject="Recuperación de password",
         recipients=[user.email]
     )
-    msg.body = "Hola,\n\nPara recuperar tu password, haz clic en el siguiente enlace:\n\n{}\n\nEste enlace exp. en 15 minutos.".format(
+    msg.body = "Hola Jefe 🧠,\n\nPara recuperar tu password, haz clic en el siguiente enlace:\n\n{}\n\nEste enlace exp. en 15 minutos.".format(
         reset_link)
     msg.html = f"""
     <html>
         <body>
-            <p>Hola,</p>
+            <p>Hola Jefe 🧠,</p>
             <p>Para recuperar tu password, haz clic en el siguiente enlace:</p>
             <p><a href="{reset_link}">Recuperar password</a></p>
             <p>Este enlace exp. en 15 minutos.</p>
@@ -174,15 +173,14 @@ def reset_password():
         return jsonify({"msg": "Token y nueva contraseña son requeridos"}), 400
 
     try:
-        # Verificar token
         decoded = decode_token(data['token'])
 
-        # (Opcional) Comprobar que el token tenga el claim de reset
         if not decoded.get('pw_reset', False):
             return jsonify({"msg": "Token inválido para este propósito"}), 400
 
-        user_id = decoded['sub']  # ID del usuario (identity en el token)
+        user_id = int(decoded['sub'])  # ID del usuario (identity en el token)
 
+        print(User)
         user = db.session.execute(select(User).where(
             User.id == user_id)).scalar_one_or_none()
 

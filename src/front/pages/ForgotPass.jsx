@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import quizBossLogo from '../assets/img/quizboss-logo.jpg';
+import "../css/Login.css";
 
 function ForgotPass() {
     const [email, setEmail] = useState("");
@@ -25,7 +28,8 @@ function ForgotPass() {
     };
 
     return (
-        <div>
+        <div className="container d-flex flex-column align-items-center justify-content-center vh-100">
+            <img src={quizBossLogo} alt="Quiz Boss Logo" className="logo rounded-3" />
             <h1>Recuperar contraseña</h1>
             <form onSubmit={handleSubmit}>
                 <input
@@ -36,6 +40,12 @@ function ForgotPass() {
                     required
                 />
                 <button type="submit">Enviar enlace</button>
+                <p className="login-register-text">
+                    ¿Ya recordaste?{" "}
+                    <Link to="/login" className="login-link">
+                        Iniciar sesión
+                    </Link>
+                </p>
             </form>
             {msg && <p>{msg}</p>}
         </div>
