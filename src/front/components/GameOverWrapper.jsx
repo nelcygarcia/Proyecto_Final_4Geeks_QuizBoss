@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import GameOverScreen from "./GameOverScreen";
-import { Context } from "../store/appContext"; // o desde donde tengas el contexto
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const GameOverWrapper = ({
   score,
@@ -10,19 +10,26 @@ const GameOverWrapper = ({
   onGoHome,
   token,
 }) => {
-  const { store } = useContext(Context);
-  const user = store.user;
+  const { store } = useGlobalReducer();
 
-  if (!user || typeof user.experiencia !== "number") return null; // o un loader
+  const tokenId = store.auth?.token;
+  const user_id = store.auth?.user_id;
+  const userData = store.userData;
+
+  console.log("user desde store:", user_id);
+  console.log("token desde store:", tokenId);
+  console.log("userData desde store:", userData);
+
+  if (!userData || typeof userData.experiencia !== "number") return null;
 
   return (
     <GameOverScreen
       score={score}
       totalQuestions={totalQuestions}
-      userXP={user.experiencia}
+      userXP={userData.experiencia}
       onXpUpdate={async (newXP, newRank) => {
         try {
-          const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/usuarios/${user.id}`, {
+          const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/usuarios/${user_id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -33,7 +40,7 @@ const GameOverWrapper = ({
               ranking_user: newRank,
             }),
           });
-          console.log(newXP, newRank);
+
 
           if (!res.ok) {
             console.error("Error al actualizar XP");

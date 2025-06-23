@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SalaDeJuegos.css'; 
+import './SalaDeJuegos.css';
 
 import UserProfile from '../../components/UserProfile';
 import QuestionCard from '../../components/QuestionCard';
 import HomeButton from '../../components/HomeButton';
-import GameStartScreen from '../../components/GameStartScreen'; 
-import GameOverScreen from '../../components/GameOverScreen'; 
+import GameStartScreen from '../../components/GameStartScreen';
 import useGameLogic from '../../hooks/useGameLogic';
+import GameOverWrapper from '../../components/GameOverWrapper';
+import useGlobalReducer from '../../hooks/useGlobalReducer';
 
 const SalaDeJuego = () => {
     const navigate = useNavigate();
-    const [selectedCategory, setSelectedCategory] = useState('cultura general'); 
+    const [selectedCategory, setSelectedCategory] = useState('cultura general');
     const [selectedDifficulty, setSelectedDifficulty] = useState('facil');
+    const { store } = useGlobalReducer();
+    const token = store.auth?.token
 
     const {
         userName,
@@ -22,25 +25,25 @@ const SalaDeJuego = () => {
         selectedAnswerButton,
         timeLeft,
         gameStatus,
-        totalQuestions, 
-        error, 
-        isLoading, 
+        totalQuestions,
+        error,
+        isLoading,
         handleAnswerSelected,
         startGame,
-        startRematch, 
-        startNewGame, 
+        startRematch,
+        startNewGame,
     } = useGameLogic();
 
     const handleGoHome = () => {
-        navigate('/');
+        navigate('/homeprivate');
     };
 
     const handleStartGame = () => {
-        startGame(5, selectedCategory, selectedDifficulty); 
+        startGame(5, selectedCategory, selectedDifficulty);
     };
 
     const handleStartNewGame = () => {
-        startNewGame(5, selectedCategory, selectedDifficulty); 
+        startNewGame(5, selectedCategory, selectedDifficulty);
     };
 
     const renderGameContent = () => {
@@ -59,7 +62,7 @@ const SalaDeJuego = () => {
                         error={error}
                     />
                 );
-            case 'loadingQuestions': 
+            case 'loadingQuestions':
                 return (
                     <div className="text-center">
                         <h2 className="text-muted">Preparado para darle al coco?</h2>
@@ -83,12 +86,13 @@ const SalaDeJuego = () => {
                 );
             case 'gameOver':
                 return (
-                    <GameOverScreen
+                    <GameOverWrapper
                         score={score}
                         totalQuestions={totalQuestions}
-                        onRematch={() => startRematch(5, selectedCategory, selectedDifficulty)} // Pasamos los parámetros aquí
-                        onNewGame={handleStartNewGame} 
-                        onGoHome={handleGoHome} 
+                        token={token}
+                        onRematch={() => startRematch(5, selectedCategory, selectedDifficulty)}
+                        onNewGame={handleStartNewGame}
+                        onGoHome={handleGoHome}
                     />
                 );
             default:
