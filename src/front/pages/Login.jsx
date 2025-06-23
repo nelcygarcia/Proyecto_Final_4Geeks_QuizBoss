@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
-import useGlobalReducer from "../hooks/useGlobalReducer"
 import { Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 
 export const Login = () => {
-  const [email, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-  const { dispatch } = useGlobalReducer();
   const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!userOrEmail || !password) {
+    if (!email || !password) {
     setErrorMessage("Completa todos los campos");
     return;
   }
@@ -37,17 +35,7 @@ export const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        dispatch({
-          type: "SET_AUTH",
-          payload: {
-            token: data.token,
-            email_id: data.email_id,
-          },
-        });
-
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user_id", data.email_id);
-
+        login(data.token, data.email_id);  // que dentro hace dispatch + localStorage
         navigate("/homeprivate");
       } else {
         if (response.status === 401 || response.status === 404) {
@@ -80,12 +68,12 @@ export const Login = () => {
 
         <h1>Inicio sesión</h1>
 
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleLogin}>
           <input
             type="text"
             placeholder="Correo electrónico"
             value={email}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input
@@ -96,7 +84,7 @@ export const Login = () => {
             required
           />
           {errorMessage && <p className="login-error">{errorMessage}</p>}
-          <button className="login-private" onClick={(e) => handleLogin(e)}>
+          <button className="login-private" type="submit">
             Entrar
           </button>
 
