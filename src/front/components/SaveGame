@@ -1,0 +1,18 @@
+// useEffect(() => {
+//   if (onXpUpdate) {
+//     onXpUpdate(newTotalXP, newRank);
+//   }
+
+//   // opcional: registrar partida en backend
+//   fetch(`${VITE_BACKEND_URL}/api/partidas`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+//     body: JSON.stringify({
+//       user_id: user.id,
+//       score: score,
+//       totalQuestions: totalQuestions
+//     })
+//   });
+// }, [newTotalXP, newRank]);
+
+// Para guardar partida y poder mostrar un historial al usuiario (nice to have)

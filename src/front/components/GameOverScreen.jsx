@@ -11,6 +11,8 @@ const GameOverScreen = ({
   onRematch,
   onNewGame,
   onGoHome,
+  userXP,
+  onXpUpdate,
 }) => {
   const isVictory = score >= 3;
   const [windowSize, setWindowSize] = useState({
@@ -18,6 +20,26 @@ const GameOverScreen = ({
     height: window.innerHeight,
   });
 
+  const xpEarned = score * 10;
+  const newTotalXP = userXP + xpEarned;
+
+  const calculateRank = (xp) => {
+    if (xp < 500) return "Principiante";
+    if (xp < 850) return "Aprendiz";
+    if (xp < 1500) return "Avanzado";
+    if (xp < 3000) return "Experto";
+    return "Maestro";
+  };
+
+  const newRank = calculateRank(newTotalXP);
+
+  useEffect(() => {
+    if (onXpUpdate) {
+      onXpUpdate(newTotalXP, newRank);
+    }
+  }, [newTotalXP,newRank]);
+
+  
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
@@ -53,6 +75,13 @@ const GameOverScreen = ({
         <span className="score-total">{totalQuestions}</span> preguntas
       </p>
 
+      <p className="text-light mb-2 fs-5">
+        Has ganado <strong>{xpEarned}</strong> puntos de experiencia.
+      </p>
+      <p className="mb-4 fs-5">
+        Tu ranking actual es: <strong>{newRank}</strong>
+      </p>
+
       <div
         className="d-flex flex-column gap-3 mt-4 w-100"
         style={{ maxWidth: "300px" }}
@@ -61,13 +90,13 @@ const GameOverScreen = ({
           className="btn btn-success btn-lg game-over-button"
           onClick={onRematch}
         >
-          Revancha (Mismas preguntas)
+          Revancha (Repetir tema y dificultad)
         </button>
         <button
           className="btn btn-info btn-lg game-over-button"
           onClick={onNewGame}
         >
-          Juego Nuevo (Otras preguntas)
+          Juego Nuevo
         </button>
         <button
           className="btn btn-secondary btn-lg game-over-button"
@@ -85,6 +114,8 @@ GameOverScreen.propTypes = {
   onRematch: PropTypes.func.isRequired,
   onNewGame: PropTypes.func.isRequired,
   onGoHome: PropTypes.func.isRequired,
+  userXP: PropTypes.number.isRequired,
+  onXpUpdate: PropTypes.func.isRequired,
 };
 
 export default GameOverScreen;
