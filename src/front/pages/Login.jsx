@@ -5,7 +5,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer"
 import { Link } from "react-router-dom";
 
 export const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -22,7 +22,7 @@ export const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_name: username,
+          email: email,
           password: password,
         }),
       });
@@ -34,12 +34,12 @@ export const Login = () => {
           type: "SET_AUTH",
           payload: {
             token: data.token,
-            user_id: data.user_id,
+            email_id: data.email_id,
           },
         });
 
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user_id", data.user_id);
+        localStorage.setItem("user_id", data.email_id);
 
         navigate("/homeprivate");
       } else {
@@ -76,8 +76,8 @@ export const Login = () => {
         <form className="login-form" onSubmit={handleLogin}>
           <input
             type="text"
-            placeholder="Usuario"
-            value={username}
+            placeholder="Correo electrónico"
+            value={email}
             onChange={(e) => setUsername(e.target.value)}
             required
           />

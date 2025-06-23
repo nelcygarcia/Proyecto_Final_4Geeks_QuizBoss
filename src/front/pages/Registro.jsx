@@ -54,7 +54,7 @@ export const Registro = () => {
         <div className="registro-card">
           <h2>¡Registro exitoso!</h2>
           <p>Tu cuenta ha sido creada correctamente.</p>
-          <button onClick={() => navigate("/homeprivate")}>Continuar</button>
+          <button onClick={() => navigate("/login")}>Continuar</button>
         </div>
       </div>
     );
