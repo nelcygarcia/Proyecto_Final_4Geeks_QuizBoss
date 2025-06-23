@@ -73,7 +73,8 @@ def login_user():
 
 @api.route('/usuarios/<int:user_id>', methods=['GET'])
 def get_usuario(user_id):
-    usuario = User.query.get(user_id)
+    usuario = db.session.execute(select(User).where(
+        User.id == user_id)).scalar_one_or_none()
     if not usuario:
         return jsonify({"msg": "Usuario no encontrado"}), 404
     return jsonify(usuario.serialize()), 200
