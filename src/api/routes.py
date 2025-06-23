@@ -23,13 +23,16 @@ def create_usuario():
 
     if not all(field in data for field in required_fields):
         return jsonify({"msg": "Faltan campos obligatorios"}), 400
+    
+    # if user = db.session.execute(select(User).where(
+    #     User.email == data["email"])).scalar_one_or_none():
+    #     return jsonify({"msg": "El email ya está registrado"}), 400
 
     nuevo_usuario = User(
         email=data["email"],
         user_name=data["user_name"],
         ranking_user=0,
         password=generate_password_hash(data["password"]),
-        # Predefinir una o obligar al usuario a seleccionar una ?
         avatar=data["avatar"],
         experiencia=0
     )
@@ -70,7 +73,8 @@ def login_user():
 
 @api.route('/usuarios/<int:user_id>', methods=['GET'])
 def get_usuario(user_id):
-    usuario = User.query.get(user_id)
+    usuario = db.session.execute(select(User).where(
+        User.id == user_id)).scalar_one_or_none()
     if not usuario:
         return jsonify({"msg": "Usuario no encontrado"}), 404
     return jsonify(usuario.serialize()), 200
@@ -83,18 +87,17 @@ def update_usuario(user_id):
         return jsonify({"msg": "Usuario no encontrado"}), 404
 
     data = request.get_json()
-    # if 'email' in data:
-    #     usuario.email = data['email']
     if 'user_name' in data:
         usuario.user_name = data['user_name']
     if 'password' in data:
         usuario.password = generate_password_hash(data['password'])
-    # if 'ranking_user' in data:
-    #     usuario.ranking_user = data['ranking_user']
     if 'avatar' in data:
         usuario.avatar = data['avatar']
-    # if 'experiencia' in data:
-    #     usuario.experiencia = data['experiencia']
+    if 'experiencia' in data:
+        usuario.experiencia = data['experiencia']
+    if 'ranking_user' in data:
+        usuario.ranking_user = data['ranking_user']
+    
 
     db.session.commit()
     return jsonify(usuario.serialize()), 200
