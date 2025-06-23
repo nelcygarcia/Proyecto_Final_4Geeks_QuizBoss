@@ -39,6 +39,7 @@ const GameOverScreen = ({
     }
   }, [newTotalXP,newRank]);
 
+  
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
