@@ -12,13 +12,9 @@ const GameOverWrapper = ({
 }) => {
   const { store } = useGlobalReducer();
 
-  const tokenId = store.auth?.token;
-  const user_id = store.auth?.user_id;
   const userData = store.userData;
-
-  console.log("user desde store:", user_id);
-  console.log("token desde store:", tokenId);
-  console.log("userData desde store:", userData);
+  const tokenId = localStorage.getItem("token");
+  const user_id = localStorage.getItem("user_id");
 
   if (!userData || typeof userData.experiencia !== "number") return null;
 
@@ -29,7 +25,7 @@ const GameOverWrapper = ({
       userXP={userData.experiencia}
       onXpUpdate={async (newXP, newRank) => {
         try {
-          const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/usuarios/${user_id}`, {
+          const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/${user_id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",

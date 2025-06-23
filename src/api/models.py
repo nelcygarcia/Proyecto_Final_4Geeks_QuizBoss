@@ -10,7 +10,7 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     user_name: Mapped[str] = mapped_column(String(50), nullable=False)
     password: Mapped[str] = mapped_column(String(200), nullable=False)
-    ranking_user: Mapped[int] = mapped_column(Integer, nullable=False)
+    ranking_user: Mapped[int] = mapped_column(String, nullable=False)
     avatar: Mapped[str] = mapped_column(String(255), nullable=False)
     experiencia: Mapped[int] = mapped_column(Integer, nullable=False)
     reset_token: Mapped[str] = mapped_column(String(200), nullable=True)
