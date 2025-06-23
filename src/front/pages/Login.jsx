@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 
 export const Login = () => {
-  const [userOrEmail, setuserOrEmail] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -29,7 +29,7 @@ export const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_name_or_email: userOrEmail,
+          email: email,
           password: password,
         }),
       });
@@ -37,7 +37,17 @@ export const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        login(data.token, data.user_id);  // que dentro hace dispatch + localStorage
+        dispatch({
+          type: "SET_AUTH",
+          payload: {
+            token: data.token,
+            email_id: data.email_id,
+          },
+        });
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user_id", data.email_id);
+
         navigate("/homeprivate");
       } else {
         if (response.status === 401 || response.status === 404) {
@@ -73,9 +83,9 @@ export const Login = () => {
         <form className="login-form">
           <input
             type="text"
-            placeholder="Nombre de usuario o correo electrónico"
-            value={userOrEmail}
-            onChange={(e) => setuserOrEmail(e.target.value)}
+            placeholder="Correo electrónico"
+            value={email}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
           <input
