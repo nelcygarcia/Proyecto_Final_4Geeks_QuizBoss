@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import useGlobalReducer from "../hooks/useGlobalReducer"
 import { Link } from "react-router-dom";
+import { useAuth } from "../../providers/AuthProvider";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ export const Login = () => {
 
   const navigate = useNavigate();
   const { dispatch } = useGlobalReducer();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,17 +32,7 @@ export const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        dispatch({
-          type: "SET_AUTH",
-          payload: {
-            token: data.token,
-            user_id: data.user_id,
-          },
-        });
-
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user_id", data.user_id);
-
+        login(data.token, data.user_id);  // que dentro hace dispatch + localStorage
         navigate("/homeprivate");
       } else {
         if (response.status === 401 || response.status === 404) {
@@ -73,7 +65,7 @@ export const Login = () => {
 
         <h1>Inicio sesión</h1>
 
-        <form className="login-form" onSubmit={handleLogin}>
+        <form className="login-form">
           <input
             type="text"
             placeholder="Usuario"
@@ -89,7 +81,7 @@ export const Login = () => {
             required
           />
           {errorMessage && <p className="login-error">{errorMessage}</p>}
-          <button className="login-private" onClick={() => handleLogin()}>
+          <button className="login-private" onClick={(e) => handleLogin(e)}>
             Entrar
           </button>
 
