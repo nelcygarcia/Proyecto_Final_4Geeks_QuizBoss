@@ -8,6 +8,7 @@ from api.models import db, User
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from api.extensions import mail
+import re
 
 
 api = Blueprint('api', __name__)
@@ -23,10 +24,43 @@ def create_usuario():
 
     if not all(field in data for field in required_fields):
         return jsonify({"msg": "Faltan campos obligatorios"}), 400
-    
-    # if user = db.session.execute(select(User).where(
-    #     User.email == data["email"])).scalar_one_or_none():
-    #     return jsonify({"msg": "El email ya está registrado"}), 400
+
+    user = db.session.execute(select(User).where(
+        User.email == data["email"])).scalar_one_or_none()
+    if user:
+        return jsonify({"msg": "El email ya está registrado"}), 400
+
+    # user = db.session.execute(select(User).where(
+    #     User.user_name == data["user_name"])).scalar_one_or_none()
+    # if user:
+    #     return jsonify({"msg": "El nombre de usuario ya está registrado"}), 400
+
+    # Validaciones de formato para email, user_name y password
+    if not isinstance(data["email"], str) or not data["email"].strip():
+        return jsonify({"msg": "Email inválido"}), 400
+    email_regex = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+    if not re.match(email_regex, data["email"]):
+        return jsonify({"msg": "Formato de email inválido"}), 400
+
+    if not isinstance(data["user_name"], str) or not data["user_name"].strip():
+        return jsonify({"msg": "Nombre de usuario inválido"}), 400
+    # Solo letras, números y guiones bajos, sin espacios ni símbolos especiales ni emojis
+    if not re.match(r"^[A-Za-z0-9_]+$", data["user_name"]):
+        return jsonify({"msg": "El nombre de usuario solo puede contener letras, números y guiones bajos"}), 400
+
+    if not isinstance(data["password"], str) or not data["password"].strip():
+        return jsonify({"msg": "Contraseña inválida"}), 400
+    # Solo permite letras, números y algunos símbolos seguros, sin emojis ni caracteres extraños
+    if not re.match(r"^[A-Za-z0-9!@#$%^&*()_\-+=\[\]{};:,.<>?/|\\]+$", data["password"]):
+        return jsonify({"msg": "La contraseña contiene caracteres no permitidos"}), 400
+
+    # Validaciones de longitud
+    if len(data["user_name"]) > 20:
+        return jsonify({"msg": "El nombre de usuario no puede tener más de 20 caracteres"}), 400
+    if len(data["password"]) > 32:
+        return jsonify({"msg": "La contraseña no puede tener más de 32 caracteres"}), 400
+    if len(data["password"]) < 6:
+        return jsonify({"msg": "La contraseña debe tener al menos 6 caracteres"}), 400
 
     nuevo_usuario = User(
         email=data["email"],
@@ -58,11 +92,15 @@ def login_user():
     if body is None:
         return {"message": "Debes enviarme el body"}, 400
 
-    if 'user_name' not in body or 'password' not in body:
-        return {"message": "Datos incompletos"}, 404
+    if 'user_name_or_email' not in body or 'password' not in body:
+        return {"message": "Datos incompletos"}, 400
 
-    user = db.session.execute(select(User).where(
-        User.user_name == body['user_name'])).scalar_one_or_none()
+    user = db.session.execute(
+        select(User).where(
+            (User.user_name == body['user_name_or_email']) | (
+                User.email == body['user_name_or_email'])
+        )
+    ).scalar_one_or_none()
 
     if user is None or not check_password_hash(user.password, body['password']):
         return {"message": "Credenciales incorrectas"}, 401
@@ -97,7 +135,6 @@ def update_usuario(user_id):
         usuario.experiencia = data['experiencia']
     if 'ranking_user' in data:
         usuario.ranking_user = data['ranking_user']
-    
 
     db.session.commit()
     return jsonify(usuario.serialize()), 200
@@ -112,12 +149,6 @@ def delete_usuario(user_id):
     db.session.delete(usuario)
     db.session.commit()
     return jsonify({"msg": "Usuario eliminado"}), 200
-
-
-@api.route('/private', methods=['GET'])
-@jwt_required
-def private_route():
-    return jsonify({"msg": "Esta es una ruta privada"}), 200
 
 
 @api.route('/recover_password', methods=['POST'])
@@ -137,8 +168,8 @@ def recover_password():
         additional_claims={"pw_reset": True}
     )
 
-    # backend_url = os.environ.get("", "http://localhost:3000")
-    reset_link = f"https://automatic-fortnight-7v5pq5jqqvx9hw97-3000.app.github.dev/reset?token={reset_token}"
+    frontend_url = os.getenv("VITE_BASENAME")
+    reset_link = f"{frontend_url}/reset?token={reset_token}"
 
     if not isinstance(user.email, str) or not user.email.strip():
         return jsonify({"msg": "Email inválido del usuario"}), 400
@@ -174,6 +205,12 @@ def reset_password():
 
     if not data or 'token' not in data or 'new_password' not in data:
         return jsonify({"msg": "Token y nueva contraseña son requeridos"}), 400
+    if not isinstance(data['new_password'], str) or not data['new_password'].strip():
+        return jsonify({"msg": "Nueva contraseña inválida"}), 400
+    if len(data['new_password']) < 6 or len(data['new_password']) > 32:
+        return jsonify({"msg": "La nueva contraseña debe tener entre 6 y 32 caracteres"}), 400
+    if not re.match(r"^[A-Za-z0-9!@#$%^&*()_\-+=\[\]{};:,.<>?/|\\]+$", data['new_password']):
+        return jsonify({"msg": "La nueva contraseña contiene caracteres no permitidos"}), 400
 
     try:
         decoded = decode_token(data['token'])
