@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
+  const [userOrEmail, setuserOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -15,7 +15,7 @@ export const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!userOrEmail || !password) {
     setErrorMessage("Completa todos los campos");
     return;
   }
@@ -27,7 +27,7 @@ export const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
+          user_name_or_email: userOrEmail,
           password: password,
         }),
       });
@@ -35,7 +35,7 @@ export const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        login(data.token, data.email_id);  // que dentro hace dispatch + localStorage
+        login(data.token, data.user_id);  // que dentro hace dispatch + localStorage
         navigate("/homeprivate");
       } else {
         if (response.status === 401 || response.status === 404) {
@@ -71,9 +71,9 @@ export const Login = () => {
         <form className="login-form" onSubmit={handleLogin}>
           <input
             type="text"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Nombre de usuario o correo electrónico"
+            value={userOrEmail}
+            onChange={(e) => setuserOrEmail(e.target.value)}
             required
           />
           <input
