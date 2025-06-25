@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 
 export const Login = () => {
-  const [username, setUsername] = useState("");
+  const [userOrEmail, setuserOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -17,6 +17,11 @@ export const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!userOrEmail || !password) {
+    setErrorMessage("Completa todos los campos");
+    return;
+  }
+
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/token`, {
         method: "POST",
@@ -24,7 +29,7 @@ export const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_name: username,
+          user_name_or_email: userOrEmail,
           password: password,
         }),
       });
@@ -68,9 +73,9 @@ export const Login = () => {
         <form className="login-form">
           <input
             type="text"
-            placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Nombre de usuario o correo electrónico"
+            value={userOrEmail}
+            onChange={(e) => setuserOrEmail(e.target.value)}
             required
           />
           <input
