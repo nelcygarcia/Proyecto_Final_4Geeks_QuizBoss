@@ -1,3 +1,4 @@
+// src/front/pages/davidPages/SalaDeJuego.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SalaDeJuegos.css';
@@ -9,16 +10,21 @@ import GameStartScreen from '../../components/GameStartScreen';
 import useGameLogic from '../../hooks/useGameLogic';
 import GameOverWrapper from '../../components/GameOverWrapper';
 import useGlobalReducer from '../../hooks/useGlobalReducer';
+import thinkingBrainGif from '../../assets/img/thinking_brain.gif'; 
+
 
 const SalaDeJuego = () => {
     const navigate = useNavigate();
     const [selectedCategory, setSelectedCategory] = useState('cultura general');
     const [selectedDifficulty, setSelectedDifficulty] = useState('facil');
     const { store } = useGlobalReducer();
-    const token = store.auth?.token
+    const token = store.auth?.token;
 
+    
+    const currentUserName = store.userData?.user_name || 'Invitado'; //
+    const currentUserAvatar = store.avatar || '/avatars/default.png'; 
+ 
     const {
-        userName,
         score,
         currentQuestion,
         feedback,
@@ -50,9 +56,8 @@ const SalaDeJuego = () => {
         switch (gameStatus) {
             case 'inicio':
                 return (
-                    //  pasamos las props de GameStartScreen
                     <GameStartScreen
-                        userName={userName}
+                        userName={currentUserName} 
                         selectedCategory={selectedCategory}
                         setSelectedCategory={setSelectedCategory}
                         selectedDifficulty={selectedDifficulty}
@@ -64,8 +69,14 @@ const SalaDeJuego = () => {
                 );
             case 'loadingQuestions':
                 return (
-                    <div className="text-center">
-                        <h2 className="text-muted">Preparado para darle al coco?</h2>
+                    <div className="text-center d-flex flex-column align-items-center justify-content-center">
+                        <img
+                            src={thinkingBrainGif}
+                            alt="La IA está pensando"
+                            className="img-fluid mb-3"
+                            style={{ maxWidth: '150px', height: 'auto' }}
+                        />
+                        <h2 className="text-muted mt-3">La IA está exprimiéndose el cerebro para tus preguntas...</h2>
                         {error && <p className="error-message">{error}</p>}
                     </div>
                 );
@@ -90,6 +101,7 @@ const SalaDeJuego = () => {
                         score={score}
                         totalQuestions={totalQuestions}
                         token={token}
+                        userName={currentUserName} // Pasar el nombre al GameOverWrapper también
                         onRematch={() => startRematch(5, selectedCategory, selectedDifficulty)}
                         onNewGame={handleStartNewGame}
                         onGoHome={handleGoHome}
@@ -109,7 +121,13 @@ const SalaDeJuego = () => {
             <header className="game-header d-flex justify-content-between align-items-start">
                 <div className="d-flex align-items-start">
                     <HomeButton onClick={handleGoHome} />
-                    {gameStatus === 'playing' && <UserProfile userName={userName} score={score} />}
+                    {gameStatus === 'playing' && (
+                        <UserProfile
+                            userName={currentUserName} // Usamos el nombre del store
+                            userAvatarUrl={currentUserAvatar} // Pasamos la URL del avatar
+                            score={score} // El score sigue siendo del hook de juego
+                        />
+                    )}
                 </div>
             </header>
 

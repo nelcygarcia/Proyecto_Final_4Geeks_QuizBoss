@@ -1,21 +1,24 @@
 import React from 'react';
-import './UserProfile.css';
+import './UserProfile.css'; 
 
-const UserProfile = ({ userName, score }) => {
-  return (
-    <div className="user-profile-box p-3 rounded shadow-sm d-flex flex-column align-items-start">
-      <div className="d-flex align-items-center mb-2">
-        <div className="me-2 user-avatar-emoji">
-          <span>😊</span>
+const UserProfile = ({ userName, userAvatarUrl, score }) => {
+    return (
+        <div className="user-profile-box"> 
+            <div className="user-profile-content">
+                {userAvatarUrl && ( // Solo renderiza si el avatarr existe
+                    <img 
+                        src={userAvatarUrl} 
+                        alt={`${userName}'s avatar`} 
+                        className="user-avatar" 
+                    />
+                )}
+                <div className="user-info-text">
+                    <span className="user-name">{userName}</span> 
+                    <span className="user-score">Puntuación: {score}</span> 
+                </div>
+            </div>
         </div>
-        <span className="fw-bold fs-5 user-name">{userName}</span>
-      </div>
-      <div className="d-flex align-items-center">
-        <span className="me-1 score-star">🧠</span>
-        <span className="fw-bold fs-5 score-number">{score}</span>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default UserProfile;
