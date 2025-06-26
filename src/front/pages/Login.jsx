@@ -1,21 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
-import useGlobalReducer from "../hooks/useGlobalReducer"
 import { Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 
 export const Login = () => {
-  const [username, setUsername] = useState("");
+  const [userOrEmail, setuserOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-  const { dispatch } = useGlobalReducer();
   const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!userOrEmail || !password) {
+    setErrorMessage("Completa todos los campos");
+    return;
+  }
 
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/token`, {
@@ -24,7 +27,7 @@ export const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_name: username,
+          user_name_or_email: userOrEmail,
           password: password,
         }),
       });
@@ -65,12 +68,12 @@ export const Login = () => {
 
         <h1>Inicio sesión</h1>
 
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleLogin}>
           <input
             type="text"
-            placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Nombre de usuario o correo electrónico"
+            value={userOrEmail}
+            onChange={(e) => setuserOrEmail(e.target.value)}
             required
           />
           <input
@@ -81,7 +84,7 @@ export const Login = () => {
             required
           />
           {errorMessage && <p className="login-error">{errorMessage}</p>}
-          <button className="login-private" onClick={(e) => handleLogin(e)}>
+          <button className="login-private" type="submit">
             Entrar
           </button>
 
