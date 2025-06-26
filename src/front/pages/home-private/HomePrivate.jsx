@@ -7,6 +7,7 @@ import { CustomNavbar } from "../../components/CustomNavbar";
 export const HomePrivate = () => {
     const { store, dispatch } = useGlobalReducer();
     const navigate = useNavigate();
+    const user = store.userData;
 
     const [currentLeftPhraseIndex, setCurrentLeftPhraseIndex] = useState(0);
     const [currentRightPhraseIndex, setCurrentRightPhraseIndex] = useState(0);
@@ -127,7 +128,7 @@ export const HomePrivate = () => {
                     style={{ maxHeight: "350px", objectFit: "contain" }}
                 />
 
-                {store.message && <h2 className="mb-4">{store.message}</h2>}
+                {store.message && <h2 className="mb-4">Hola {user.user_name}</h2>}
 
                 <img
                     src={store.avatar}
