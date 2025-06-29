@@ -8,6 +8,7 @@ from api.models import db, User
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from api.extensions import mail
+from sqlalchemy import cast, Integer
 import re
 
 
@@ -149,6 +150,18 @@ def delete_usuario(user_id):
     db.session.delete(usuario)
     db.session.commit()
     return jsonify({"msg": "Usuario eliminado"}), 200
+
+
+@api.route('/usuarios/ranking', methods=['GET'])
+def get_usuarios_ranking():
+    usuarios = db.session.execute(
+        select(User).order_by(cast(User.ranking_user, Integer).desc())
+    ).scalars().all()
+
+    if not usuarios:
+        return jsonify({"msg": "No hay usuarios registrados"}), 404
+
+    return jsonify([user.serialize() for user in usuarios]), 200
 
 
 @api.route('/recover_password', methods=['POST'])
