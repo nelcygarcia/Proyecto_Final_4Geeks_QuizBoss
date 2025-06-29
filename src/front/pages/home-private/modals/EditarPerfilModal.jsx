@@ -41,19 +41,24 @@ export const EditarPerfilModal = ({ show, onClose }) => {
 
         const asciiRegex = /^[\x20-\x7E]*$/;
 
-        if (newPassword.length < 6 || !asciiRegex.test(newPassword)) {
-            const toastElement = document.getElementById("passwordToast");
-            const toastBody = toastElement.querySelector(".toast-body");
 
-            if (newPassword.length < 6) {
-                toastBody.textContent = "La contraseña debe tener al menos 6 caracteres.";
+        if (isChangingPassword) {
+            if (newPassword.length < 6 || !asciiRegex.test(newPassword)) {
+                const toastElement = document.getElementById("passwordToast");
+                const toastBody = toastElement.querySelector(".toast-body");
+
+                if (newPassword.length < 6) {
+                    toastBody.textContent = "La contraseña debe tener al menos 6 caracteres.";
+                } else {
+                    toastBody.textContent = "La contraseña contiene caracteres no válidos.";
+                }
+
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+                return;
             } else {
-                toastBody.textContent = "La contraseña contiene caracteres no válidos.";
+                payload.password = newPassword;
             }
-
-            const toast = new bootstrap.Toast(toastElement);
-            toast.show();
-            return;
         }
 
         const user_id = store.auth.user_id || localStorage.getItem("user_id");

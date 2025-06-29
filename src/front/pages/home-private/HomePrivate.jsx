@@ -15,17 +15,27 @@ export const HomePrivate = () => {
     const user = store.userData;
     const user = store.userData;
 
-    const [currentLeftPhraseIndex, setCurrentLeftPhraseIndex] = useState(0);
     const [currentRightPhraseIndex, setCurrentRightPhraseIndex] = useState(0);
+    const [ranking, setRanking] = useState([]);
 
-    const frasesIzquierda = [
-        "🧠 ¡Pon a prueba tu conocimiento!",
-        "💡 Cada respuesta cuenta. ¡Demuestra lo que sabes!",
-        "🏆 Solo los mejores llegarán al final.",
-        "🔥 ¡Reta tu mente con cada pregunta!",
-        "🎯 Aprende mientras juegas.",
-        "⏳ El tiempo corre… ¿estás listo?"
-    ];
+
+    useEffect(() => {
+        const fetchRanking = async () => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/ranking`);
+                if (!response.ok) throw new Error("Error al obtener el ranking");
+
+                const data = await response.json();
+                setRanking(data);
+            } catch (error) {
+                console.error("Error al obtener el ranking:", error);
+            }
+        };
+
+        if (store.userData) {
+            fetchRanking(); // Se actualiza cuando cambia userData
+        }
+    }, [store.userData]);
 
     const frasesDerecha = [
         "📚 Aprende algo nuevo en cada partida.",
@@ -37,19 +47,19 @@ export const HomePrivate = () => {
     ];
 
     useEffect(() => {
-        const intervalLeft = setInterval(() => {
-            setCurrentLeftPhraseIndex((prev) => (prev + 1) % frasesIzquierda.length);
-        }, 4000);
 
         const intervalRight = setInterval(() => {
             setCurrentRightPhraseIndex((prev) => (prev + 1) % frasesDerecha.length);
         }, 4000);
 
         return () => {
-            clearInterval(intervalLeft);
-            clearInterval(intervalRight);
+            { clearInterval(intervalRight); }
         };
     }, []);
+
+    useEffect(() => {
+
+    }, [store.userData])
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -93,21 +103,46 @@ export const HomePrivate = () => {
     return (
         <>
             <CustomNavbar playerName="Rigo" />
-            {/* Slider izquierdo */}
+
+            {/* RANKING */}
             <div
                 className="position-fixed d-none d-md-block"
                 style={{
                     top: "50%",
                     left: "15vw",
                     transform: "translateY(-50%)",
-                    width: "260px",
-                    zIndex: 1030
+                    width: "280px",
+                    zIndex: 1030,
+                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    borderRadius: "10px",
+                    padding: "15px",
+                    boxShadow: "0 0 10px rgba(0,0,0,0.3)"
                 }}
             >
-                <div className="alert alert-dark shadow-sm rounded-3 p-3 text-start">
-                    <strong>{frasesIzquierda[currentLeftPhraseIndex]}</strong>
+                <h6 className="text-center fw-bold mb-3 text-dark">🏆 Top Jugadores</h6>
+                <div className="table-responsive" style={{ maxHeight: "300px", overflowY: "auto" }}>
+                    <table className="table table-sm table-bordered table-hover align-middle mb-0">
+                        <thead className="table-warning text-center">
+                            <tr>
+                                <th style={{ fontSize: "0.8rem" }}>#</th>
+                                <th style={{ fontSize: "0.8rem" }}>Jugador</th>
+                                <th style={{ fontSize: "0.8rem" }}>Ranking</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-center">
+                            {ranking.map((user, index) => (
+                                <tr key={user.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{user.user_name}</td>
+                                    <td>{user.ranking_user}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
+
 
             {/* Slider derecho */}
             <div
@@ -191,7 +226,7 @@ export const HomePrivate = () => {
                     onClick={() => navigate("/sala")}
                     style={{ fontSize: "1.8rem", borderRadius: "12px" }}
                 >
-                    🎮 Iniciar Partida
+                    🎮 Seleccionar Partida
                 </button>
             </div>
         </>
