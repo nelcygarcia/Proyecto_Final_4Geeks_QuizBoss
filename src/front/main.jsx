@@ -6,6 +6,7 @@ import { router } from "./routes";
 import { StoreProvider } from './hooks/useGlobalReducer';
 import { BackendURL } from './components/BackendURL';
 import { AuthProvider } from '../providers/AuthProvider';
+import { ThemeProvider } from './hooks/ThemeContext';
 
 
 const Main = () => {
@@ -19,11 +20,13 @@ const Main = () => {
 
     return (
         <React.StrictMode>
-            <StoreProvider>  
-                <AuthProvider>
-                    <RouterProvider router={router} />
-                </AuthProvider>
-            </StoreProvider>
+            <ThemeProvider>
+                <StoreProvider>
+                    <AuthProvider>
+                        <RouterProvider router={router} />
+                    </AuthProvider>
+                </StoreProvider>
+            </ThemeProvider>
         </React.StrictMode>
     );
 };
