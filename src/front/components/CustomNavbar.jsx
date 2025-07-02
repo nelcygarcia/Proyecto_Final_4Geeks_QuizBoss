@@ -26,7 +26,7 @@ export const CustomNavbar = () => {
 	return (
 		<>
 			<nav className="navbar navbar-dark bg-dark fixed-top w-100 shadow">
-				<div className="container-fluid d-flex justify-content-between align-items-center py-2 px-4">
+				<div className="container-fluid d-flex justify-content-between align-items-center py-2 px-5">
 					<div className="d-flex align-items-center gap-3" onClick={handleProfileClick} style={{ cursor: "pointer" }}>
 						<img src={avatarUrl} alt="Avatar" className="rounded-circle" width="40" height="40" />
 						<div className="text-white">

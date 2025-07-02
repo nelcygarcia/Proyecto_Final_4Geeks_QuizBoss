@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
-import { CustomNavbar } from "../components/CustomNavbar";
+import ThemeToggle from "../components/ThemeToggle";
 
 export const Layout = () => {
     const location = useLocation();
@@ -8,7 +8,7 @@ export const Layout = () => {
 
     return (
         <ScrollToTop>
-
+            <ThemeToggle />
             <main className="container-fluid px-0">
                 <Outlet />
             </main>
