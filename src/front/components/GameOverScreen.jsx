@@ -90,7 +90,7 @@ const GameOverScreen = ({
           className="btn btn-success btn-lg game-over-button"
           onClick={onRematch}
         >
-          Revancha (Repetir tema y dificultad)
+          Revancha {/*Repetir tema y dificultad*/}
         </button>
         <button
           className="btn btn-info btn-lg game-over-button"
