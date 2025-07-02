@@ -8,6 +8,7 @@ from api.models import db, User
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from api.extensions import mail
+from sqlalchemy import cast, Integer
 import re
 
 
@@ -30,10 +31,10 @@ def create_usuario():
     if user:
         return jsonify({"msg": "El email ya está registrado"}), 400
 
-    # user = db.session.execute(select(User).where(
-    #     User.user_name == data["user_name"])).scalar_one_or_none()
-    # if user:
-    #     return jsonify({"msg": "El nombre de usuario ya está registrado"}), 400
+    user = db.session.execute(select(User).where(
+        User.user_name == data["user_name"])).scalar_one_or_none()
+    if user:
+        return jsonify({"msg": "El nombre de usuario ya está registrado"}), 400
 
     # Validaciones de formato para email, user_name y password
     if not isinstance(data["email"], str) or not data["email"].strip():
@@ -126,6 +127,12 @@ def update_usuario(user_id):
 
     data = request.get_json()
     if 'user_name' in data:
+        existing_user = db.session.execute(
+            select(User).where(User.user_name ==
+                               data['user_name'], User.id != user_id)
+        ).scalar_one_or_none()
+        if existing_user:
+            return jsonify({"msg": "Ese nombre de usuario ya está en uso"}), 400
         usuario.user_name = data['user_name']
     if 'password' in data:
         usuario.password = generate_password_hash(data['password'])
@@ -149,6 +156,18 @@ def delete_usuario(user_id):
     db.session.delete(usuario)
     db.session.commit()
     return jsonify({"msg": "Usuario eliminado"}), 200
+
+
+@api.route('/usuarios/ranking', methods=['GET'])
+def get_usuarios_ranking():
+    usuarios = db.session.execute(
+        select(User).order_by(cast(User.ranking_user, Integer).desc())
+    ).scalars().all()
+
+    if not usuarios:
+        return jsonify({"msg": "No hay usuarios registrados"}), 404
+
+    return jsonify([user.serialize() for user in usuarios]), 200
 
 
 @api.route('/recover_password', methods=['POST'])
