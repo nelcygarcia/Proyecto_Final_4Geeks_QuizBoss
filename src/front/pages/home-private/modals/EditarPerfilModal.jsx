@@ -41,19 +41,24 @@ export const EditarPerfilModal = ({ show, onClose }) => {
 
         const asciiRegex = /^[\x20-\x7E]*$/;
 
-        if (newPassword.length < 6 || !asciiRegex.test(newPassword)) {
-            const toastElement = document.getElementById("passwordToast");
-            const toastBody = toastElement.querySelector(".toast-body");
 
-            if (newPassword.length < 6) {
-                toastBody.textContent = "La contraseña debe tener al menos 6 caracteres.";
+        if (isChangingPassword) {
+            if (newPassword.length < 6 || !asciiRegex.test(newPassword)) {
+                const toastElement = document.getElementById("passwordToast");
+                const toastBody = toastElement.querySelector(".toast-body");
+
+                if (newPassword.length < 6) {
+                    toastBody.textContent = "La contraseña debe tener al menos 6 caracteres.";
+                } else {
+                    toastBody.textContent = "La contraseña contiene caracteres no válidos.";
+                }
+
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+                return;
             } else {
-                toastBody.textContent = "La contraseña contiene caracteres no válidos.";
+                payload.password = newPassword;
             }
-
-            const toast = new bootstrap.Toast(toastElement);
-            toast.show();
-            return;
         }
 
         const user_id = store.auth.user_id || localStorage.getItem("user_id");
@@ -68,9 +73,24 @@ export const EditarPerfilModal = ({ show, onClose }) => {
                 body: JSON.stringify(payload),
             });
 
-            if (!resp.ok) throw new Error("Error al guardar los cambios");
 
             const data = await resp.json();
+
+            if (!resp.ok) {
+                const toastElement = document.getElementById("userToast");
+                const toastBody = toastElement.querySelector(".toast-body");
+
+                if (data.msg?.includes("ya está en uso")) {
+                    toastBody.textContent = data.msg;
+                } else {
+                    toastBody.textContent = "Error al guardar los cambios.";
+                }
+
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+                return;
+            }
+
 
             dispatch({ type: "set_avatar", payload: data.avatar });
             dispatch({ type: "set_user_data", payload: data });
@@ -268,6 +288,28 @@ export const EditarPerfilModal = ({ show, onClose }) => {
                 <div className="d-flex">
                     <div className="toast-body">
                         La contraseña contiene caracteres no válidos.
+                    </div>
+                    <button
+                        type="button"
+                        className="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"
+                    ></button>
+                </div>
+            </div>
+
+
+            {/* Toast general para errores como "usuario ya en uso" */}
+            <div
+                className="toast align-items-center text-white bg-danger border-0 position-fixed bottom-0 end-0 m-3"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+                id="userToast"
+            >
+                <div className="d-flex">
+                    <div className="toast-body">
+                        Error al guardar los cambios.
                     </div>
                     <button
                         type="button"
