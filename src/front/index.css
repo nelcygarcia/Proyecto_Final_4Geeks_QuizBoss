@@ -3,28 +3,29 @@ body.light {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   /* background-color: #5ea9a7; */
-  background-image: url(assets/img/imgavatars..png);
+  background-image:url(assets/img/e4c966a7-85bf-45d7-82f8-0085e9c929f0.png);
   color: #222;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  
-   
-  
-  
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
   
 }
 body.dark {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url(assets/img/4e491785-ca22-48fd-8e3b-920d69ccbba7.png);
+  background-image:url(assets/img/11114561-38dc-48dc-b5ea-d8462012b7f6.png);
   color: #fff;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
-  height: 100vh;
-  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .container {
