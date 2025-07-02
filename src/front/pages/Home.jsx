@@ -1,5 +1,5 @@
 import quizBossLogo from '../assets/img/quizboss-logo.jpg';
-import "../index.css";
+import "../css/Home.css";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../hooks/ThemeContext";
@@ -14,8 +14,12 @@ export const Home = () => {
 			<button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
 				{theme === "light" ? "🌙 modo oscuro" : "☀️ modo claro"}
 			</button>
-			<img src={quizBossLogo} alt="Quiz Boss Logo" className="logo" />
-			<h1>Bienvenido a <span className="highlight">Quiz Boss</span></h1>
+        	<div className="title-container">
+      			<h1>
+        			Bienvenido a 
+        			<img src={quizBossLogo} alt="Quiz Boss Logo" className="logo-inline" />
+      			</h1>
+    		</div>
 			<div className="auth-buttons">
 				<button onClick={() => navigate("/register")}>Registrarse</button>
 				<button onClick={() => navigate("/login")}>Iniciar Sesión</button>
