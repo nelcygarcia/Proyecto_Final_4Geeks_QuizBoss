@@ -2,22 +2,24 @@
 body.light {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url(assets/img/fondohomeclaro.png);
   color: #222;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-attachment: fixed;
+  background-position: cover;
 }
 
 body.dark {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image:url(assets/img/11114561-38dc-48dc-b5ea-d8462012b7f6.png);
-  color: #fff;
+  background-image: url(assets/img/fondohomeoscuro.png) ;
+  color: #222;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: center;
+  background-position: cover;
 }
 
