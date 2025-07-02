@@ -10,7 +10,7 @@ import GameStartScreen from '../../components/GameStartScreen';
 import useGameLogic from '../../hooks/useGameLogic';
 import GameOverWrapper from '../../components/GameOverWrapper';
 import useGlobalReducer from '../../hooks/useGlobalReducer';
-import thinkingBrainGif from '../../assets/img/thinking_brain.gif'; 
+import braintrs from '../../assets/img/braintrs.gif'; 
 
 
 const SalaDeJuego = () => {
@@ -71,10 +71,10 @@ const SalaDeJuego = () => {
                 return (
                     <div className="text-center d-flex flex-column align-items-center justify-content-center">
                         <img
-                            src={thinkingBrainGif}
+                            src={braintrs}
                             alt="La IA está pensando"
                             className="img-fluid mb-3"
-                            style={{ maxWidth: '150px', height: 'auto' }}
+                            style={{ maxWidth: '300px', height: 'auto' }}
                         />
                         <h2 className="text-muted mt-3">La IA está exprimiéndose el cerebro para tus preguntas...</h2>
                         {error && <p className="error-message">{error}</p>}

@@ -1,14 +1,14 @@
 import React from 'react';
+import './HomeButton.css';
 
 const HomeButton = ({ onClick }) => {
   return (
-    
     <button
-      className="btn btn-dark p-2 rounded-circle shadow-sm d-flex justify-content-center align-items-center"
+      className="home-button"
       onClick={onClick}
-      style={{ marginLeft: '20px', marginTop: '5px' }}
+      aria-label="Volver atrás"
     >
-      <span className="fs-4">⬅️</span> 
+      <i class="fa-solid fa-arrow-left"></i>
     </button>
   );
 };

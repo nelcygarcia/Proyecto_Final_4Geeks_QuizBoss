@@ -1,63 +1,96 @@
 /* src/front/components/GameOverScreen.css */
 
 .game-over-screen {
-  background-color: var(--dark-color);
-  padding: 2rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
-  text-align: center;
-  max-width: 600px;
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    background-color: #2c3e50;
+    padding: 2.5rem 2.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.4);
+    text-align: center;
+    max-width: 580px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    margin: 50px auto; 
 }
 
 .game-over-screen h1 {
-  color: var(--text-light);
-  padding: 0.5rem 1.5rem;
+    color: #f39c12;
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .game-over-screen p {
-  color: var(--text-light);
+    color: #ecf0f1;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
 }
 
 .score-final {
-  color: var(--accent-color); 
-  font-weight: bold;
+    color: #f39c12;
+    font-weight: bold;
+    font-size: 1.6rem;
 }
 
 .score-total {
-  color: var(--text-light);
-  font-weight: bold;
+    color: #ecf0f1;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.game-over-buttons {
+    display: flex; 
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    max-width: 350px;
 }
 
 .game-over-button {
-  width: 100%;
-  font-size: 1rem;
-  padding: 0.5rem 1.5rem;
-  margin-bottom: 0.60rem; 
-  transition: transform 0.2s ease;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 0.9rem 2rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: none !important; 
+    border-radius: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff !important; 
 }
 
 .game-over-button:hover {
-  transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
 }
 
-.btn-success {
-  background-color: var(--success-color) !important;
-  border-color: var(--success-color) !important;
+
+.btn-success.game-over-button {
+    background-color: #5EA9A7 !important;
+    border-color: #5EA9A7 !important;
+}
+.btn-success.game-over-button:hover {
+    background-color: #4C8E8B !important;
+    border-color: #4C8E8B !important;
 }
 
-.btn-info {
-  background-color: #0dcaf0 !important; 
-  border-color: #0dcaf0 !important;
-  color: var(--dark-color) !important; 
+.btn-info.game-over-button {
+    background-color: #D6B770 !important;
+    border-color: #D6B770 !important;
+}
+.btn-info.game-over-button:hover {
+    background-color: #BBA062 !important;
+    border-color: #BBA062 !important;
 }
 
-.btn-secondary {
-  background-color: #6c757d !important; 
-  border-color: #6c757d !important;
+.btn-secondary.game-over-button {
+    background-color: #9170CB !important;
+    border-color: #9170CB !important;
 }
-
+.btn-secondary.game-over-button:hover {
+    background-color: #795BAB !important;
+    border-color: #795BAB !important;
+}
