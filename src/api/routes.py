@@ -31,10 +31,10 @@ def create_usuario():
     if user:
         return jsonify({"msg": "El email ya está registrado"}), 400
 
-    # user = db.session.execute(select(User).where(
-    #     User.user_name == data["user_name"])).scalar_one_or_none()
-    # if user:
-    #     return jsonify({"msg": "El nombre de usuario ya está registrado"}), 400
+    user = db.session.execute(select(User).where(
+        User.user_name == data["user_name"])).scalar_one_or_none()
+    if user:
+        return jsonify({"msg": "El nombre de usuario ya está registrado"}), 400
 
     # Validaciones de formato para email, user_name y password
     if not isinstance(data["email"], str) or not data["email"].strip():
@@ -127,6 +127,12 @@ def update_usuario(user_id):
 
     data = request.get_json()
     if 'user_name' in data:
+        existing_user = db.session.execute(
+            select(User).where(User.user_name ==
+                               data['user_name'], User.id != user_id)
+        ).scalar_one_or_none()
+        if existing_user:
+            return jsonify({"msg": "Ese nombre de usuario ya está en uso"}), 400
         usuario.user_name = data['user_name']
     if 'password' in data:
         usuario.password = generate_password_hash(data['password'])
