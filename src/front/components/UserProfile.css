@@ -43,3 +43,22 @@
     font-size: 0.9em; 
     color: #ecf0f1; 
 }
+
+/* --- Estilos para el MODO CLARO --- */
+body.light .user-profile-box {
+    background-color: #D2A4AC; 
+    color: #2c3e50; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+body.light .user-avatar {
+    border: 2px solid #5EA9A7; 
+}
+
+body.light .user-name {
+    color: #34495e; 
+}
+
+body.light .user-score {
+    color: #2c3e50; 
+}

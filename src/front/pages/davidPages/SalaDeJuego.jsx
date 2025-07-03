@@ -76,7 +76,7 @@ const SalaDeJuego = () => {
                             className="img-fluid mb-3"
                             style={{ maxWidth: '300px', height: 'auto' }}
                         />
-                        <h2 className="text-muted mt-3">La IA está exprimiéndose el cerebro para tus preguntas...</h2>
+                        <h2 className="loading-message-text">La IA está exprimiéndose el cerebro para tus preguntas...</h2>
                         {error && <p className="error-message">{error}</p>}
                     </div>
                 );

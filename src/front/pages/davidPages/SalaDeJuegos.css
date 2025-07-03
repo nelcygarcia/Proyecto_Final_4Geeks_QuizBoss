@@ -60,6 +60,9 @@ code {
   padding: 1rem;
 }
 
+.loading-message-text {
+    color: #F8E6E9 !important; 
+}
 /* --- Estos estilos fueron movidos a GameStartScreen.css, GameOverScreen.css, QuestionCard.css, UserProfile.css, HomeButton.css --- */
 /*
 .start-screen { ... }

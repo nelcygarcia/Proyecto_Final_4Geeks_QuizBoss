@@ -64,3 +64,36 @@
   background: #eee;
   color: #222;
 }
+
+/* --- Estilos para el MODO CLARO --- */
+body.light .home-button {
+    background-color: #F8E6E9;
+    border: 2px solid #D2A4AC; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+body.light .home-button:hover {
+    background-color: #a891c2; 
+    transform: scale(1.05); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+}
+
+body.light .home-button-icon {
+    color: #2c3e50; 
+}
+
+body.light .modal-content {
+    background: #f8f8f8; 
+    color: #333; 
+    box-shadow: 0 4px 32px rgba(0,0,0,0.1); 
+}
+
+body.light .modal-btn.confirm {
+    background: #e74c3c; 
+    color: #fff;
+}
+
+body.light .modal-btn.cancel {
+    background: #D6B770; 
+    color: #2c3e50; 
+}
