@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import quizBossLogo from '../assets/img/quizboss-logo.jpg';
-import "../css/Login.css";
+import '../css/RecoverPass.css';
 
 function ForgotPass() {
     const [email, setEmail] = useState("");
@@ -28,7 +28,7 @@ function ForgotPass() {
     };
 
     return (
-        <div className="container d-flex flex-column align-items-center justify-content-center vh-100">
+        <div className="container d-flex flex-column align-items-center justify-content-center">
             <img src={quizBossLogo} alt="Quiz Boss Logo" className="logo rounded-3" />
             <h1>Recuperar contraseña</h1>
             <form onSubmit={handleSubmit}>
