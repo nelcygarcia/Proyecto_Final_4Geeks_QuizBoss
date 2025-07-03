@@ -70,8 +70,8 @@ const GameOverScreen = ({
       </h1>
 
       <p className="text-light mb-4 fs-4">
-        Tu puntuación: <span className="score-final">{score}</span> de{" "}
-        <span className="score-total">{totalQuestions}</span> preguntas
+        Tu puntuación: <span className="score-final"> <strong>{score}</strong> </span> de{" "}
+        <span className="score-total"> <strong>{totalQuestions}</strong></span> preguntas
       </p>
 
       <p className="text-light mb-2 fs-5">

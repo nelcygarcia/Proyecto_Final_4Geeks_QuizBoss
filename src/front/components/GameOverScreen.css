@@ -94,3 +94,61 @@
     background-color: #795BAB !important;
     border-color: #795BAB !important;
 }
+
+/* --- Estilos para el MODO CLARO --- */
+body.light .game-over-screen {
+    background-color: #D2A4AC; 
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2); 
+}
+
+body.light .game-over-screen h1 {
+    color: #2c3e50; 
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+}
+
+body.light .game-over-screen p,
+body.light .score-total {
+    color: #2c3e50; 
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+body.light .score-final {
+    color: #2c3e50; 
+}
+
+body.light .btn-success.game-over-button {
+    background-color: #5EA9A7 !important;
+    border-color: #5EA9A7 !important;
+}
+body.light .btn-success.game-over-button:hover {
+    background-color: #4C8E8B !important;
+    border-color: #4C8E8B !important;
+    filter: none; 
+}
+
+body.light .btn-info.game-over-button {
+    background-color: #D6B770 !important;
+    border-color: #D6B770 !important;
+}
+body.light .btn-info.game-over-button:hover {
+    background-color: #BBA062 !important;
+    border-color: #BBA062 !important;
+    filter: none;
+}
+
+body.light .btn-secondary.game-over-button {
+    background-color: #9170CB !important;
+    border-color: #9170CB !important;
+}
+body.light .btn-secondary.game-over-button:hover {
+    background-color: #795BAB !important;
+    border-color: #795BAB !important;
+    filter: none;
+}
+
+body.light .game-over-button:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    
+}
