@@ -145,10 +145,12 @@ export const EditarPerfilModal = ({ show, onClose }) => {
             <div className={`modal fade ${show ? "show d-block" : "d-none"}`} tabIndex="-1" role="dialog">
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content shadow">
-                        <div className="modal-header bg-dark text-white">
+                        {/*<div className="modal-header bg-dark text-white">
                             <h5 className="modal-title">Perfil del Jugador</h5>
                             <button type="button" className="btn-close btn-close-white" onClick={onClose}></button>
-                        </div>
+                        </div>*/}
+
+                        <div style={{ display: "flex", justifyContent: "center", fontSize: "30px" }}>Perfil del Jugador</div>
 
                         <div className="modal-body text-center">
                             <div className="mb-3">
