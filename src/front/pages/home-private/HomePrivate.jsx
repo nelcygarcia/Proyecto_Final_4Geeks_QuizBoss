@@ -114,12 +114,13 @@ export const HomePrivate = () => {
                             backgroundColor: "rgba(255, 255, 255, 0.9)",
                             borderRadius: "10px",
                             padding: "15px",
-                            boxShadow: "0 0 10px rgba(0,0,0,0.3)"
+                            boxShadow: "0 0 10px rgba(0,0,0,0.3)",
+                            overflowY: "none"
                         }}
                     >
                         <h6 className="text-center fw-bold mb-3 text-dark">🏆 Top Jugadores</h6>
                         <div className="table-responsive" style={{ maxHeight: "300px", overflowY: "auto" }}>
-                            <table className="table table-sm table-bordered table-hover align-middle mb-0">
+                            <table className="table table-sm table-bordered table-hover align-middle mb-0" style={{ overflowY: "auto", maxHeight: "186px" }}>
                                 <thead className="table-warning text-center">
                                     <tr>
                                         <th style={{ fontSize: "0.8rem" }}>#</th>
