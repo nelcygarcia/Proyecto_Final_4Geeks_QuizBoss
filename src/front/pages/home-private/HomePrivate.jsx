@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useGlobalReducer from "../../hooks/useGlobalReducer";
-import quizBossLogo from "../../assets/img/quizboss-logo.jpg";
 import { CustomNavbar } from "../../components/CustomNavbar";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useGlobalReducer from "../../hooks/useGlobalReducer";
-import quizBossLogo from "../../assets/img/quizboss-logo.jpg";
-import { CustomNavbar } from "../../components/CustomNavbar";
+import "../../components/GameStartScreen.css"
+
+
 
 export const HomePrivate = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -104,132 +101,76 @@ export const HomePrivate = () => {
         <>
             <CustomNavbar playerName="Rigo" />
 
-            {/* RANKING */}
-            <div
-                className="position-fixed d-none d-md-block"
-                style={{
-                    top: "50%",
-                    left: "15vw",
-                    transform: "translateY(-50%)",
-                    width: "280px",
-                    zIndex: 1030,
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
-                    borderRadius: "10px",
-                    padding: "15px",
-                    boxShadow: "0 0 10px rgba(0,0,0,0.3)"
-                }}
-            >
-                <h6 className="text-center fw-bold mb-3 text-dark">🏆 Top Jugadores</h6>
-                <div className="table-responsive" style={{ maxHeight: "300px", overflowY: "auto" }}>
-                    <table className="table table-sm table-bordered table-hover align-middle mb-0">
-                        <thead className="table-warning text-center">
-                            <tr>
-                                <th style={{ fontSize: "0.8rem" }}>#</th>
-                                <th style={{ fontSize: "0.8rem" }}>Jugador</th>
-                                <th style={{ fontSize: "0.8rem" }}>Ranking</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-center">
-                            {ranking.map((user, index) => (
-                                <tr key={user.id}>
-                                    <td>{index + 1}</td>
-                                    <td>{user.user_name}</td>
-                                    <td>{user.ranking_user}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+            <div className="container-fluid vh-100 d-flex flex-column align-items-center justify-content-center text-white">
+
+                {/* Fila central con ranking - avatar - frases */}
+                <div className="d-flex justify-content-between align-items-center w-100 px-5" style={{ gap: "250px" }}>
+
+                    {/* IZQUIERDA: RANKING */}
+                    <div
+                        className="d-none d-md-block marco"
+                        style={{
+                            width: "280px",
+                            backgroundColor: "rgba(255, 255, 255, 0.9)",
+                            borderRadius: "10px",
+                            padding: "15px",
+                            boxShadow: "0 0 10px rgba(0,0,0,0.3)"
+                        }}
+                    >
+                        <h6 className="text-center fw-bold mb-3 text-dark">🏆 Top Jugadores</h6>
+                        <div className="table-responsive" style={{ maxHeight: "300px", overflowY: "auto" }}>
+                            <table className="table table-sm table-bordered table-hover align-middle mb-0">
+                                <thead className="table-warning text-center">
+                                    <tr>
+                                        <th style={{ fontSize: "0.8rem" }}>#</th>
+                                        <th style={{ fontSize: "0.8rem" }}>Jugador</th>
+                                        <th style={{ fontSize: "0.8rem" }}>Ranking</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-center">
+                                    {ranking.map((user, index) => (
+                                        <tr key={user.id}>
+                                            <td>{index + 1}</td>
+                                            <td>{user.user_name}</td>
+                                            <td>{user.ranking_user}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* CENTRO: AVATAR + SALUDO */}
+                    <div className="text-center">
+                        {store.message && <h2 className="mb-4 start-screen-title" >Hola {user.user_name}</h2>}
+
+                        <img
+                            src={store.avatar}
+                            alt="Avatar del usuario"
+                            className="rounded-circle mb-4 marco"
+                            style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                        />
+                    </div>
+
+                    {/* DERECHA: FRASES */}
+                    <div className="d-none d-md-block" style={{ width: "260px" }}>
+                        <div className="alert alert-dark shadow-sm rounded-3 p-3 text-end marco">
+                            <strong>{frasesDerecha[currentRightPhraseIndex]}</strong>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-
-
-            {/* Slider derecho */}
-            <div
-                className="position-fixed d-none d-md-block"
-                style={{
-                    top: "50%",
-                    right: "15vw",
-                    transform: "translateY(-50%)",
-                    width: "260px",
-                    zIndex: 1030
-                }}
-            >
-                <div className="alert alert-dark shadow-sm rounded-3 p-3 text-end">
-                    <strong>{frasesDerecha[currentRightPhraseIndex]}</strong>
+                {/* BOTÓN ABAJO */}
+                <div className="mt-4">
+                    <button
+                        className="start-game-button"
+                        onClick={() => navigate("/sala")}
+                        style={{ fontSize: "1.8rem", borderRadius: "12px", maxWidth: "500px" }}
+                    >
+                        <div>🎮 Seleccionar Partida</div>
+                    </button>
                 </div>
-            </div>
-
-            {/* Contenido principal */}
-            <div className="container-fluid d-flex flex-column align-items-center justify-content-center vh-100 text-white text-center">
-                <img
-                    src={quizBossLogo}
-                    alt="Banner partida"
-                    className="img-fluid mb-3"
-                    style={{ maxHeight: "350px", objectFit: "contain" }}
-                />
-        <>
-            <CustomNavbar playerName="Rigo" />
-            {/* Slider izquierdo */}
-            <div
-                className="position-fixed d-none d-md-block"
-                style={{
-                    top: "50%",
-                    left: "15vw",
-                    transform: "translateY(-50%)",
-                    width: "260px",
-                    zIndex: 1030
-                }}
-            >
-                <div className="alert alert-dark shadow-sm rounded-3 p-3 text-start">
-                    <strong>{frasesIzquierda[currentLeftPhraseIndex]}</strong>
-                </div>
-            </div>
-
-            {/* Slider derecho */}
-            <div
-                className="position-fixed d-none d-md-block"
-                style={{
-                    top: "50%",
-                    right: "15vw",
-                    transform: "translateY(-50%)",
-                    width: "260px",
-                    zIndex: 1030
-                }}
-            >
-                <div className="alert alert-dark shadow-sm rounded-3 p-3 text-end">
-                    <strong>{frasesDerecha[currentRightPhraseIndex]}</strong>
-                </div>
-            </div>
-
-            {/* Contenido principal */}
-            <div className="container-fluid d-flex flex-column align-items-center justify-content-center vh-100 text-white text-center">
-                <img
-                    src={quizBossLogo}
-                    alt="Banner partida"
-                    className="img-fluid mb-3"
-                    style={{ maxHeight: "350px", objectFit: "contain" }}
-                />
-
-                {store.message && <h2 className="mb-4">Hola {user.user_name}</h2>}
-                {store.message && <h2 className="mb-4">Hola {user.user_name}</h2>}
-
-                <img
-                    src={store.avatar}
-                    alt="Avatar del usuario"
-                    className="rounded-circle mb-4"
-                    style={{ width: "100px", height: "100px", objectFit: "cover" }}
-                />
-
-                <button
-                    className="btn btn-warning btn-lg shadow px-5 py-3 mb-3"
-                    onClick={() => navigate("/sala")}
-                    style={{ fontSize: "1.8rem", borderRadius: "12px" }}
-                >
-                    🎮 Seleccionar Partida
-                </button>
             </div>
         </>
     );
-};
-
+}
