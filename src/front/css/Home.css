@@ -1,11 +1,11 @@
 body {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  margin: 0;
   padding: 20px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .container {
@@ -19,10 +19,9 @@ body {
   box-sizing: border-box;
   text-align: center;
   padding: 30px;
-  background-color: rgba(44, 62, 58, 0.3);
+  background-color: rgba(44, 62, 58, 0.4);
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  margin: 20px;
   position: relative; 
 }
 
@@ -97,4 +96,32 @@ footer {
   margin-top: 20px;
   font-size: 0.8rem;
   color: #ccc;
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .logo-inline {
+    width: 50px;
+    height: 50px;
+  }
+
+  .auth-buttons button {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+  }
+
+  .title-container, .instructions {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .container {
+    padding: 20px 15px;
+  }
 }

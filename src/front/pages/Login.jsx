@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import { Link } from "react-router-dom";
@@ -11,6 +11,14 @@ export const Login = () => {
 
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  useEffect(() => {
+    document.body.classList.add("home-background");
+
+    return () => {
+      document.body.classList.remove("home-background");
+    };
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();

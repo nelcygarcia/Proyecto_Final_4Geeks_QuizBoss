@@ -15,11 +15,11 @@
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   width: 100%;
-    max-width: 800px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-   margin: 0 auto;
+  margin: 0 auto;
 }
 
 .registro-card h1 {
