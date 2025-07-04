@@ -28,8 +28,8 @@ function ForgotPass() {
     };
 
     return (
-        <div className="container d-flex flex-column align-items-center justify-content-center">
-            <img src={quizBossLogo} alt="Quiz Boss Logo" className="logo rounded-3" />
+        <div className="container">
+            <img src={quizBossLogo} alt="QuizBoss Logo" className="logo rounded-3" />
             <h1>Recuperar contraseña</h1>
             <form onSubmit={handleSubmit}>
                 <input
