@@ -1,52 +1,59 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Registro.css";
 
 export const Registro = () => {
-        const [email, setEmail] = useState("");
-        const [username, setUsername] = useState("");
-        const [password, setPassword] = useState("");
-        const [confirmPassword, setConfirmPassword] = useState("");
-        const [registroExitoso, setRegistroExitoso] = useState(false);
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [registroExitoso, setRegistroExitoso] = useState(false);
 
-        const navigate = useNavigate();
+    const navigate = useNavigate();
 
-        const handleSubmit = (e) => {
-                e.preventDefault();
+    useEffect(() => {
+        document.body.classList.add("home-background");
 
-                if (password !== confirmPassword) {
-                        alert("Las contraseñas no coinciden");
-                        return;
-                }
+        return () => {
+            document.body.classList.remove("home-background");
+    };
+  }, []);
 
-                //fetch(`${import.meta.env.VITE_BACKEND_URL}/api/signup`, {
-                fetch(`${import.meta.env.VITE_BACKEND_URL.replace(/\/$/, '')}/api/signup`, {
-                        method: "POST",
-                        headers: {
-                                "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                                email: email,
-                                user_name: username,
-                                password: password,
-                                ranking_user: 0,
-                                avatar: "./public/avatars/2.PNG", //Pendiente de revisión
-                                experiencia: 0
-                        })
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (password !== confirmPassword) {
+                alert("Las contraseñas no coinciden");
+                return;
+        }
+
+        fetch(`${import.meta.env.VITE_BACKEND_URL.replace(/\/$/, '')}/api/signup`, {
+                method: "POST",
+                headers: {
+                        "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                        email: email,
+                        user_name: username,
+                        password: password,
+                        ranking_user: 0,
+                        avatar: "./public/avatars/2.PNG", //Pendiente de revisión
+                        experiencia: 0
                 })
-                        .then((res) => {
-                                if (!res.ok) throw new Error("Error en el registro");
-                                return res.json();
-                        })
-                        .then((data) => {
-                                console.log("Usuario registrado:", data);
-                                setRegistroExitoso(true);
-                        })
-                        .catch((err) => {
-                                console.error("Error al registrar:", err);
-                                alert("Hubo un error al registrar el usuario");
-                        });
-        };
+        })
+                .then((res) => {
+                        if (!res.ok) throw new Error("Error en el registro");
+                        return res.json();
+                })
+                .then((data) => {
+                        console.log("Usuario registrado:", data);
+                        setRegistroExitoso(true);
+                })
+                .catch((err) => {
+                        console.error("Error al registrar:", err);
+                        alert("Hubo un error al registrar el usuario");
+                });
+};
 
         if (registroExitoso) {
                 return (

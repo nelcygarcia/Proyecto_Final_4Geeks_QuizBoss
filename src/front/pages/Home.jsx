@@ -1,7 +1,7 @@
 import quizBossLogo from '../assets/img/quizboss-logo.jpg';
 import "../css/Home.css";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../hooks/ThemeContext";
 
 export const Home = () => {
@@ -9,11 +9,17 @@ export const Home = () => {
 	const navigate = useNavigate(); 
 	const { theme,setTheme } = useContext(ThemeContext);
 
+	useEffect(() => {
+		document.body.classList.add("home-background");
+
+		return () => {
+			document.body.classList.remove("home-background");
+		};
+	}, []);
+	
+
 	return (
 		<div className="container">
-			<button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
-				{theme === "light" ? "🌙 modo oscuro" : "☀️ modo claro"}
-			</button>
         	<div className="title-container">
       			<h1>
         			Bienvenido a 
