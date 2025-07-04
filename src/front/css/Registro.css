@@ -49,6 +49,15 @@
   outline: 2px solid #D6B770; 
 }
 
+.input-ok {
+  border: 2px solid #28a745; /* verde */
+  background-color: #f6fffa;
+}
+
+.input-error {
+  border: 2px solid #dc3545; /* rojo */
+  background-color: #fff6f6;
+}
 
 .registro-form button {
   background-color: #5EA9A7; 
@@ -68,9 +77,18 @@
 }
 
 .registro-error {
-  color: #ff6b6b; 
-  font-size: 0.9rem;
-  text-align: center;
+  color: #b14a22; /* rojo-marrón más suave */
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  font-family: Arial, sans-serif;
+}
+
+.registro-error span {
+  font-size: 1.1rem; /* icono un poco más grande */
 }
 
 .registro-home-container {
