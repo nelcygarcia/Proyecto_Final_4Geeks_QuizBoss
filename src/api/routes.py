@@ -161,7 +161,9 @@ def delete_usuario(user_id):
 @api.route('/usuarios/ranking', methods=['GET'])
 def get_usuarios_ranking():
     usuarios = db.session.execute(
-        select(User).order_by(cast(User.experiencia, Integer).desc())
+        select(User)
+        .where(cast(User.experiencia, Integer) > 0)
+        .order_by(cast(User.experiencia, Integer).desc())
     ).scalars().all()
 
     if not usuarios:
