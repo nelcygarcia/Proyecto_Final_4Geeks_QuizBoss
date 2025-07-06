@@ -49,7 +49,7 @@
 
 
 .login-form button {
-  background-color: #5EA9A7; 
+  background-color: #D6B770; 
   color: #23322D;
   border: none;
   padding: 12px;
@@ -61,7 +61,7 @@
 }
 
 .login-form button:hover {
-  background-color: #4e908f; 
+  background-color: #cfa33c; 
   transform: translateY(-2px); 
 }
 
@@ -80,7 +80,7 @@
 .login-home {
   width: 40px;
   height: 40px;
-  background-color: #5EA9A7; 
+  background-color: #D6B770; 
   border: none;
   border-radius: 50%;
   display: flex;
@@ -91,7 +91,7 @@
 }
 
 .login-home:hover {
-  background-color: #4e908f; 
+  background-color: #cfa33c; 
   transform: translateY(-2px);
 }
 
@@ -120,6 +120,43 @@
 .login-link:hover {
   color: #c9a75c; 
   text-decoration: underline;
+}
+
+body.light.home-background .login-card {
+  background-color: rgba(210, 164, 172, 0.8);
+}
+
+body.light.home-background .login-card h1 {
+  color: #34495e; 
+}
+
+body.light.home-background .login-form button {
+  background-color: #5EA9A7; 
+  color: #34495e; 
+}
+
+body.light.home-background .login-form button:hover {
+  background-color: #4e908f; 
+}
+
+body.light.home-background .login-home {
+  background-color: #5EA9A7; 
+}
+
+body.light.home-background .login-home:hover {
+  background-color: #4e908f; 
+}
+
+body.light.home-background .login-link {
+  color: #34495e; 
+}
+
+body.light.home-background .login-link:hover {
+  color: #4e908f; 
+}
+
+body.light.home-background .login-register-text{
+  color: #151e29; 
 }
 
 @media (max-width: 768px) {

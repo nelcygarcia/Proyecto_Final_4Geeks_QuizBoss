@@ -46,11 +46,11 @@
 }
 
 .registro-form input:focus {
-  outline: 2px solid #D6B770; 
+  outline: 2px solid #cfa33c;
 }
 
 .input-ok {
-  border: 2px solid #28a745; /* verde */
+  border: 2px solid #28a745; 
   background-color: #f6fffa;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .registro-form button {
-  background-color: #5EA9A7; 
+  background-color: #D6B770;
   color: #23322D;
   border: none;
   padding: 12px;
@@ -72,12 +72,12 @@
 }
 
 .registro-form button:hover {
-  background-color: #4e908f; 
+  background-color: #cfa33c;
   transform: translateY(-2px);
 }
 
 .registro-error {
-  color: #b14a22; /* rojo-marrón más suave */
+  color: #b14a22; 
   font-size: 0.85rem;
   margin-top: 4px;
   display: flex;
@@ -88,7 +88,7 @@
 }
 
 .registro-error span {
-  font-size: 1.1rem; /* icono un poco más grande */
+  font-size: 1.1rem; 
 }
 
 .registro-home-container {
@@ -100,7 +100,7 @@
 .registro-home {
   width: 40px;
   height: 40px;
-  background-color: #5EA9A7; 
+  background-color: #D6B770;
   border: none;
   border-radius: 50%;
   display: flex;
@@ -111,7 +111,7 @@
 }
 
 .registro-home:hover {
-  background-color: #4e908f;
+  background-color: #cfa33c;
   transform: translateY(-2px);
 }
 
@@ -120,6 +120,28 @@
   height: 24px;
   fill: white;
 }
+
+body.light.home-background .registro-card {
+  background-color: rgba(210, 164, 172, 0.8);
+}
+
+body.light.home-background .registro-form button {
+  background-color: #5EA9A7; 
+  color: #34495e;
+}
+
+body.light.home-background .registro-form button:hover {
+  background-color: #4e908f; 
+}
+
+body.light.home-background .registro-home {
+  background-color: #5EA9A7; 
+}
+
+body.light.home-background .registro-home:hover{
+  background-color: #4e908f;
+}
+
 
 @media (max-width: 768px) {
   .registro-card {

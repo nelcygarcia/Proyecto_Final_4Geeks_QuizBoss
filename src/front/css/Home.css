@@ -26,10 +26,9 @@ body {
 }
 
 .title-container {
-  background-color: #52103879;
+  background-color: #d14d9a79;
   padding: 20px 20px; 
   border-radius: 15px; 
-  color: #fff;
   margin-bottom: 30px; 
   width: 90%; 
   max-width: 550px; 
@@ -70,21 +69,21 @@ h1 {
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  background-color: #5EA9A7;
+  background-color: #D6B770;
   color: #23322D;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .auth-buttons button:hover {
-  background-color: #4e908f;
+  background-color: #cfa33c;
 }
 
 .instructions {
-  background-color: #3b4e4879;
+  background-color: #d14d9a79;
   padding: 15px;
   border-radius: 10px;
-  color: #fff;
+  color: #D6B770;
 }
 
 .instructions h2 {
@@ -96,6 +95,41 @@ footer {
   margin-top: 20px;
   font-size: 0.8rem;
   color: #ccc;
+}
+
+body.light.home-background .container {
+  background-color: rgba(210, 164, 172, 0.8);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+body.light.home-background .title-container{
+  background-color: #5EA9A7;
+}
+
+body.light.home-background h1 {
+  color: #34495e;
+}
+
+body.light.home-background .logo-inline {
+  border-color: #34495e;
+}
+
+body.light.home-background .auth-buttons button {
+  background-color: #5EA9A7;
+  color:#34495e;
+}
+
+body.light.home-background .auth-buttons button:hover {
+  background-color: #4e908f;
+}
+
+body.light.home-background .instructions {
+  background-color: #5EA9A7;
+  color: #34495e;
+}
+
+body.light.home-background .instructions h2 {
+  color: #34495e;
 }
 
 @media screen and (max-width: 480px) {
