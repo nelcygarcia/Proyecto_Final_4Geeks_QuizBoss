@@ -7,8 +7,8 @@ body.light {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-attachment: fixed;
-  background-position: cover;
+  background-size: cover;
+  
 }
 
 body.dark {
@@ -19,8 +19,8 @@ body.dark {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-attachment: fixed;
-  background-position: cover;
+  background-size: cover;
+  background-position: center;
 }
 
 

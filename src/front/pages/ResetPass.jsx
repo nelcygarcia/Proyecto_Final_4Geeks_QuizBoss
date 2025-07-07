@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import '../css/RecoverPass.css';
 
 function ResetPassword() {
   const location = useLocation();
@@ -40,7 +41,7 @@ function ResetPassword() {
   }
 
   return (
-    <div>
+    <div className="container">
       <h1>Restablecer contraseña</h1>
       <form onSubmit={handleReset}>
         <input
@@ -49,10 +50,10 @@ function ResetPassword() {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
-        <button type="submit">Restablecer</button>
-        <p className="login-register-text">
+        <button type="submit" className="buttons">Restablecer</button>
+        <p>
                     ¿Probamos de nuevo?{" "}
-                    <Link to="/login" className="login-link">
+                    <Link to="/login">
                         Iniciar sesión
                     </Link>
                 </p>

@@ -22,7 +22,7 @@
 }
 
 .login-card h1 {
-  color: #D6B770; 
+  color: #ffc107; 
   text-align: center;
   font-size: 2rem;
   margin-bottom: 10px;
@@ -44,12 +44,12 @@
 }
 
 .login-form input:focus {
-  outline: 2px solid #D6B770; 
+  outline: 2px solid #ffc107; 
 }
 
 
 .login-form button {
-  background-color: #D6B770; 
+  background-color: #ffc107; 
   color: #23322D;
   border: none;
   padding: 12px;
@@ -80,7 +80,7 @@
 .login-home {
   width: 40px;
   height: 40px;
-  background-color: #D6B770; 
+  background-color: #ffc107; 
   border: none;
   border-radius: 50%;
   display: flex;
@@ -110,7 +110,7 @@
 }
 
 .login-link {
-  color: #D6B770; 
+  color: #ffc107; 
   text-decoration: none;
   font-size: 0.9rem;
   cursor: pointer;
