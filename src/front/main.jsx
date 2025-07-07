@@ -22,7 +22,7 @@ const Main = () => {
     return (
         <React.StrictMode>
             <ThemeProvider>
-                <MusicPlayer src="public/avatars/Sonidos/Tomorrow'sLight.mp3" />
+                <MusicPlayer src="/avatars/Sonidos/Tomorrow'sLight.mp3" />
                 <StoreProvider>
                     <AuthProvider>
                         <RouterProvider router={router} />
