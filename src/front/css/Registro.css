@@ -23,7 +23,7 @@
 }
 
 .registro-card h1 {
-  color: #D6B770; 
+  color: #ffc107; 
   font-size: 2rem;
   text-align: center;
   margin-bottom: 10px;
@@ -60,7 +60,7 @@
 }
 
 .registro-form button {
-  background-color: #D6B770;
+  background-color: #ffc107;
   color: #23322D;
   border: none;
   padding: 12px;
@@ -100,7 +100,7 @@
 .registro-home {
   width: 40px;
   height: 40px;
-  background-color: #D6B770;
+  background-color: #ffc107;
   border: none;
   border-radius: 50%;
   display: flex;
