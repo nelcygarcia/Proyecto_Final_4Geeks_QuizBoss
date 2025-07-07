@@ -102,7 +102,7 @@ export const Registro = () => {
             user_name: username,
             password,
             ranking_user: 0,
-            avatar: "./public/avatars/2.PNG",
+            avatar: "/avatars/2.PNG",
             experiencia: 0,
           }),
         }
