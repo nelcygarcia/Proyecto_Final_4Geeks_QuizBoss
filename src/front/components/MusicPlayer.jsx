@@ -17,7 +17,7 @@ const MusicPlayer = ({ src, volume = 0.3 }) => {
 
   return (
     <button
-      className="music-toggle"
+      className="music-toggle buttons"
       onClick={() => setPlaying((p) => !p)}
       style={{ position: "fixed", bottom: 20, right: 20, zIndex: 9999 }}
       aria-label={playing ? "Pausar música" : "Reproducir música"}
