@@ -37,7 +37,7 @@
   justify-content: center;
 }
 .modal-content {
-  background: #fff;
+  background: #22303c;
   padding: 2rem 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
@@ -63,7 +63,7 @@
   color: #fff;
 }
 .modal-btn.cancel {
-  background: #eee;
+  background: #ffc107;
   color: #222;
 }
 
@@ -85,13 +85,14 @@ body.light .home-button-icon {
 }
 
 body.light .modal-content {
-  background: #fff;
+  background: #5ea9a7e9;
   padding: 2rem 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
   text-align: center;
   min-width: 500px;
   width: 40%;
+  
 }
 
 body.light .modal-btn.confirm {
@@ -100,6 +101,6 @@ body.light .modal-btn.confirm {
 }
 
 body.light .modal-btn.cancel {
-  background: #d6b770;
+  background: #d2a4ac;
   color: #2c3e50;
 }
