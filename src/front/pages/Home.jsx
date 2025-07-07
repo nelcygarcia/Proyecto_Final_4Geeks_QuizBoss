@@ -7,7 +7,6 @@ import { ThemeContext } from "../hooks/ThemeContext";
 export const Home = () => {
 
 	const navigate = useNavigate(); 
-	const { theme,setTheme } = useContext(ThemeContext);
 
 	useEffect(() => {
 		document.body.classList.add("home-background");
