@@ -10,7 +10,6 @@ export const HomePrivate = () => {
     const { store, dispatch } = useGlobalReducer();
     const navigate = useNavigate();
     const user = store.userData;
-
     const [currentRightPhraseIndex, setCurrentRightPhraseIndex] = useState(0);
     const [ranking, setRanking] = useState([]);
 
