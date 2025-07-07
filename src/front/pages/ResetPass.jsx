@@ -50,10 +50,10 @@ function ResetPassword() {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
-        <button type="submit">Restablecer</button>
+        <button type="submit" className="buttons">Restablecer</button>
         <p>
                     ¿Probamos de nuevo?{" "}
-                    <Link to="/login" className="login-link">
+                    <Link to="/login">
                         Iniciar sesión
                     </Link>
                 </p>

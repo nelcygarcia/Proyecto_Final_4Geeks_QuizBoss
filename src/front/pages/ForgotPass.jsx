@@ -39,10 +39,10 @@ function ForgotPass() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-                <button type="submit">Enviar enlace</button>
-                <p className="login-register-text">
+                <button className="buttons" type="submit">Enviar enlace</button>
+                <p>
                     ¿Ya recordaste?{" "}
-                    <Link to="/login" className="login-link">
+                    <Link to="/login">
                         Iniciar sesión
                     </Link>
                 </p>
