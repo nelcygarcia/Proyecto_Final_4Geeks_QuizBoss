@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useGlobalReducer from "../../../hooks/useGlobalReducer";
+import "../../../components/GameStartScreen.css"
 
 export const EditarPerfilModal = ({ show, onClose }) => {
     const { store, dispatch } = useGlobalReducer();
@@ -150,7 +151,7 @@ export const EditarPerfilModal = ({ show, onClose }) => {
                             <button type="button" className="btn-close btn-close-white" onClick={onClose}></button>
                         </div>*/}
 
-                        <div style={{ display: "flex", justifyContent: "center", fontSize: "30px" }}>Perfil del Jugador</div>
+                        <div className="textColor" style={{ display: "flex", justifyContent: "center", fontSize: "30px" }}>Perfil del Jugador</div>
 
                         <div className="modal-body text-center">
                             <div className="mb-3">
@@ -161,7 +162,7 @@ export const EditarPerfilModal = ({ show, onClose }) => {
                                     width="120"
                                     height="120"
                                 />
-                                <p className="mt-2 text-muted">Haz clic en un avatar para cambiarlo</p>
+                                <p className="mt-2 text-muted textColor">Haz clic en un avatar para cambiarlo</p>
                             </div>
 
                             <div className="mb-4 d-flex flex-wrap justify-content-center gap-2">
@@ -185,9 +186,9 @@ export const EditarPerfilModal = ({ show, onClose }) => {
 
                             <hr />
 
-                            <div className="text-start px-3 text-black">
+                            <div className="text-start px-3 textColor">
                                 <div className="mb-2">
-                                    <label className="form-label"><strong>👤 Usuario:</strong></label>
+                                    <label className="form-label textColor"><strong>👤 Usuario:</strong></label>
                                     {isEditingName ? (
                                         <div className="d-flex">
                                             <input
@@ -220,9 +221,9 @@ export const EditarPerfilModal = ({ show, onClose }) => {
                                     )}
                                 </div>
 
-                                <p><strong>⭐ Experiencia:</strong> {user.experiencia} XP</p>
-                                <p><strong>🏆 Ranking:</strong> {user.ranking_user}</p>
-                                <p><strong>📧 Email:</strong> {user.email}</p>
+                                <p className="textColor"><strong>⭐ Experiencia:</strong> {user.experiencia} XP</p>
+                                <p className="textColor"><strong>🏆 Ranking:</strong> {user.ranking_user}</p>
+                                <p className="textColor"><strong>📧 Email:</strong> {user.email}</p>
 
                                 <div className="mb-2">
                                     <label className="form-label"><strong>🔒 Contraseña:</strong></label>
@@ -248,8 +249,8 @@ export const EditarPerfilModal = ({ show, onClose }) => {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <span>********</span>
+                                        <div className="d-flex justify-content-between align-items-center textColor">
+                                            <span className="textColor">********</span>
                                             <button
                                                 className="btn btn-sm btn-outline-secondary ms-3"
                                                 onClick={() => setIsChangingPassword(true)}
