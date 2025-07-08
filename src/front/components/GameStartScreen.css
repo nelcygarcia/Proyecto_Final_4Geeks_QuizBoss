@@ -155,6 +155,10 @@
   box-shadow: none;
 }
 
+.textColor {
+  color: white !important;
+}
+
 .error-message {
   color: #ff6b6b;
   margin-top: 1rem;
@@ -219,6 +223,10 @@ body.light .start-game-button:disabled {
 
 body.light .error-message {
   color: #e74c3c;
+}
+
+body.light .textColor {
+  color: black !important;
 }
 
 @media (min-width: 768px) {
