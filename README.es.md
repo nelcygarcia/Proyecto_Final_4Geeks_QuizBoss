@@ -21,13 +21,13 @@
 ---
 
 ## 🎮 Uso
-Regístrate o inicia sesión para empezar a jugar.
+- Regístrate o inicia sesión para empezar a jugar.
 
-Elige tu modo de juego favorito.
+- Elige tu modo de juego favorito.
 
-Responde preguntas y sube de nivel.
+- Responde preguntas y sube de nivel.
 
-¡Compite y mejora tu ranking!
+- ¡Compite y mejora tu ranking!
 
 ---
 
@@ -36,11 +36,11 @@ Responde preguntas y sube de nivel.
 
 Agradecimientos especiales a los colaboradores:
 
-@davirf5
+- @davirf5
 
-@Eliasmalx
+- @Eliasmalx
 
-@erika-renau
+- @erika-renau
 
 ---
 
