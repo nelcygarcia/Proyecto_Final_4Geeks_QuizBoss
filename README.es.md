@@ -4,7 +4,14 @@
 
 ## 🚀 Descripción
 
-> QuizBoss es una plataforma web de preguntas y respuestas con estilo videojuego que permite a los usuarios poner a prueba sus conocimientos de forma divertida.
+QuizBoss es una aplicación web tipo trivia con estilo videojuego, diseñada para desafiar tus conocimientos en múltiples categorías de manera entretenida y competitiva.  
+
+Cuenta con:  
+- Sistema de autenticación seguro (login/signup)  
+- Selección personalizada de avatar  
+- Sistema de niveles y puntuación  
+- Modo de juego clásico y por desafíos  
+- Diseño responsivo y accesible  
 
 ---
 
@@ -25,13 +32,12 @@
 
 - Elige tu modo de juego favorito.
 
-- Responde preguntas y sube de nivel.
+-  Responde preguntas y sube de nivel.
 
 - ¡Compite y mejora tu ranking!
-
 ---
-
 ## 🤝 Contribuciones
+
 ¡Las contribuciones son bienvenidas! Puedes abrir un issue o pull request para mejorar el proyecto.
 
 Agradecimientos especiales a los colaboradores:
@@ -41,18 +47,31 @@ Agradecimientos especiales a los colaboradores:
 - @Eliasmalx
 
 - @erika-renau
+---
+##  Agradecimientos
+
+Este proyecto fue desarrollado como parte del bootcamp de 4Geeks Academy, cuya mentoría y recursos fueron fundamentales para su realización.
 
 ---
 
-##  Agradecimientos
-Este proyecto fue desarrollado como parte del bootcamp de 4Geeks Academy, cuya mentoría y recursos fueron fundamentales para su realización.
+##  📄 Licencia
 
+Este proyecto está bajo licencia MIT. Consulta el archivo LICENSE para más información.
+
+---
 ## 💻 Instalación
-
 ```bash
 git clone https://github.com/nelcygarcia/Proyecto_Final_4Geeks_QuizBoss.git
+cd Proyecto_Final_4Geeks_QuizBoss/backend
 pip install -r requirements.txt
-# Sigue las instrucciones para backend y frontend.
+# Configura variables de entorno y ejecuta el backend
+cd ../frontend
+npm install
+npm start
+
+
+¡Gracias por visitar y jugar QuizBoss! 🚀
+
 
 
 
