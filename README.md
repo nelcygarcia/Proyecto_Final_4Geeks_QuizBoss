@@ -23,13 +23,13 @@
 ---
 
 ## 🎮 Usage
-Register or login to start playing.
+- Register or login to start playing.
 
-Choose your favorite game mode.
+- Choose your favorite game mode.
 
-Answer questions and level up.
+- Answer questions and level up.
 
-Compete and improve your ranking!
+- Compete and improve your ranking!
 
 ---
 
@@ -38,11 +38,11 @@ Contributions are welcome! Feel free to open an issue or pull request to improve
 
 Special thanks to contributors:
 
-@davirf5
+- @davirf5
 
-@Eliasmalx
+- @Eliasmalx
 
-@erika-renau
+- @erika-renau
 
 ---
 
