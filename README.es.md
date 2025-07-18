@@ -1,10 +1,6 @@
-# 🎮 QuizBoss
-
 <p align="center">
-  <img src="./banner-quizboss.png" alt="Captura de QuizBoss" width="20%" />
+  <img src="./banner-quizboss.png" alt="Captura de QuizBoss" width="15%" />
 </p>
-
----
 
 ## 🚀 Descripción
 
